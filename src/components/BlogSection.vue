@@ -3,7 +3,7 @@
         <div class="relative bg-gray-50 py-16 sm:py-24 lg:py-32">
           <div class="relative">
             <div class="text-center mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
-              <h2 class="text-base font-semibold tracking-wider text-cyan-600 uppercase">Learn</h2>
+              <h2 class="text-base font-semibold tracking-wider blue-text uppercase">Learn</h2>
               <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Helpful Resources</p>
               <p class="mt-5 mx-auto max-w-prose text-xl text-gray-500">Phasellus lorem quam molestie id quisque diam aenean nulla in. Accumsan in quis quis nunc, ullamcorper malesuada. Eleifend condimentum id viverra nulla.</p>
             </div>
@@ -14,7 +14,7 @@
                 </div>
                 <div class="flex-1 bg-white p-6 flex flex-col justify-between">
                   <div class="flex-1">
-                    <p class="text-sm font-medium text-cyan-600">
+                    <p class="text-sm font-medium blue-text">
                       <a :href="post.category.href" class="hover:underline">
                         {{ post.category.name }}
                       </a>

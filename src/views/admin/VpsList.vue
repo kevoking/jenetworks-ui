@@ -1,13 +1,13 @@
 <template>
     <div>
         <div class="py-6">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                <h1 class="text-2xl font-semibold text-gray-900">VPS</h1>
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-lg font-semibold text-gray-900">VPS</h1>
             </div>
             <div class="max-w-7xl mx-auto">
                 <!-- Replace with your content -->
                 <div class="mx-auto max-w-7xl my-4 flex justify-end items-center">
-                    <button class="bg-orange-400 px-4 py-2 rounded-md" @click="toggleModal('vps')">
+                    <button class="orange-bg px-4 py-2 rounded-md" @click="toggleModal('vps')">
                         Add Server
                     </button>
                 </div>
@@ -25,6 +25,16 @@
                         <Column field="bandWidthSize.size" header="BandWidth"></Column>
                         <Column field="ips" header="IPS"></Column>
                         <Column field="status" header="Status"></Column>
+                        <Column field="status" header="Action">
+                            <template #body="{ data }">
+                                <button class="px-2 py-1" >
+                                    <PencilIcon class="h-4 w-4 blue-text" />
+                                </button>
+                                <button class="px-2 py-1" >
+                                    <TrashIcon class="h-4 w-4 text-red-400" />
+                                </button>
+                            </template>
+                        </Column>
                     </DataTable>
                 </div>
                 <!-- /End replace -->
@@ -37,6 +47,11 @@
 import { computed } from 'vue'
 import { useMeasurementStore } from '../../store';
 import VpsForm from '../../components/admin/dialogs/VpsForm.vue'
+
+import {
+    PencilIcon,
+    TrashIcon
+} from '@heroicons/vue/outline'
 
 const measurementStore = useMeasurementStore();
 

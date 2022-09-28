@@ -1,13 +1,13 @@
 <template>
     <div>
         <div class="py-6">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                <h1 class="text-2xl font-semibold text-gray-900">Payment Matrix</h1>
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-lg font-semibold text-gray-900">Payment Matrix</h1>
             </div>
             <div class="max-w-7xl mx-auto">
                 <!-- Replace with your content -->
                 <div class="mx-auto max-w-7xl my-4 flex justify-end items-center">
-                    <button class="bg-orange-400 px-4 py-2 rounded-md" @click="toggleModal('paymentmatrix')">
+                    <button class="orange-bg px-4 py-2 rounded-md" @click="toggleModal('paymentmatrix')">
                         Add Payment Matrix
                     </button>
                 </div>
@@ -24,6 +24,16 @@
                         </Column>
                         <Column field="os.name" header="Operating System"></Column>
                         <Column field="amount" header="Amount"></Column>
+                        <Column field="status" header="Action">
+                            <template #body="{ data }">
+                                <button class="px-2 py-1" >
+                                    <PencilIcon class="h-4 w-4 blue-text" />
+                                </button>
+                                <button class="px-2 py-1" >
+                                    <TrashIcon class="h-4 w-4 text-red-400" />
+                                </button>
+                            </template>
+                        </Column>
                     </DataTable>
                 </div>
                 <!-- /End replace -->
@@ -36,6 +46,11 @@
 import { computed } from 'vue'
 import { useMeasurementStore } from '../../store';
 import PaymentMatrixForm from '../../components/admin/dialogs/PaymentMatrixForm.vue'
+
+import {
+    PencilIcon,
+    TrashIcon
+} from '@heroicons/vue/outline'
 
 const measurementStore = useMeasurementStore();
 

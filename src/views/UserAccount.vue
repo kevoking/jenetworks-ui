@@ -1,7 +1,7 @@
 <template>
-	<div class="max-w-7xl mx-auto py-12">
+	<div class="py-12">
 		<div class="flex justify-start items-center px-4">
-			<h3 class="text-blue-400">
+			<h3 class="blue-text">
 				{{ authStore.fullName }}
 			</h3>
 		</div>
@@ -9,7 +9,7 @@
 			<div class="px-4">
 				<div class="bg-white">
 					<div v-for="(item, index) in tabs" :key="index" class="block my-2">
-						<button class="px-4 py-1 bg-gray-200 flex w-full justify-start rounded-l-md rounded-r-full" :class="currentTab == item ? 'bg-orange-400 py-2 ' : ''" @click="currentTab = item">
+						<button class="px-4 py-1 bg-gray-200 flex w-full justify-start rounded-l-md rounded-r-full" :class="currentTab == item ? 'orange-bg py-2 ' : ''" @click="currentTab = item">
 							<span>{{item.title}}</span>
 						</button>
 					</div>

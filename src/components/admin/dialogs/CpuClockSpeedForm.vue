@@ -8,19 +8,19 @@
                     <div class="">
                         <label for="speed" class="block text-sm font-medium text-gray-700">Speed</label>
                         <InputText type="text" v-model="speed" id="speed"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none  focus:blue-border sm:text-sm" />
                     </div>
                     <div class="">
                         <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                         <Textarea v-model="description" id="description"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" ></Textarea>
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none  focus:blue-border sm:text-sm" ></Textarea>
                     </div>
                 </div>
             </div>
             <template #footer>
                 <Button label="Cancel" icon="pi pi-times" @click="closeModal"
                     class="p-button-outline p-button-secondary" />
-                <Button label="Add Item" icon="pi pi-check" @click="submitCpuClockSpeed" class="bg-indigo-600 text-white"
+                <Button label="Add Item" icon="pi pi-check" @click="submitCpuClockSpeed" class="blue-bg text-white"
                     autofocus />
             </template>
         </Dialog>
@@ -35,8 +35,8 @@ import { useToast } from 'primevue/usetoast';
 
 import Button from 'primevue/button';
 const props = defineProps({
-    invoiceId: String,
-    expenseId: String
+    edit: Boolean,
+    data: Object
 })
 
 const toast = useToast();

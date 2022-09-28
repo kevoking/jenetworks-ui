@@ -13,6 +13,8 @@
     "@heroicons/vue": "^1.0.6",
     "@vue/apollo-composable": "^4.0.0-alpha.19",
     "apollo-boost": "^0.4.9",
+    "apollo-link-token-refresh": "^0.4.0",
+    "axios": "^0.27.2",
     "graphql": "^15.8.0",
     "pinia": "^2.0.16",
     "primeicons": "^5.0.0",

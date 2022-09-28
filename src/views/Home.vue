@@ -2,7 +2,9 @@
 	<div>
 		<Header />
 		<Pricing />
-		<Testimonial />
+		<!-- <Testimonial /> -->
+		<Clients />
+		<Faq />
 		<Partners />
 	</div>
 </template>
@@ -10,5 +12,7 @@
 	import Header from '../components/Header.vue'
 	import Pricing from '../components/PricingSection.vue'
 	import Testimonial from '../components/TestimonialCompactSection.vue'
+	import Clients from '../components/ClientsSection.vue'
 	import Partners from '../components/PartnersSection.vue'
+	import Faq from '../components/FaqSection.vue'
 </script>

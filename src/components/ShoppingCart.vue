@@ -1,6 +1,6 @@
 <template>
   <!-- CTA Section -->
-  <div class="max-w-7xl mx-auto py-12 space-y-8 min-h-full">
+  <div class="py-12 space-y-8 min-h-full">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <div class="lg:col-span-2 px-4 py-6 space-y-8">
 
@@ -62,7 +62,7 @@
       <div class="px-4 py-6 space-y-8">
 
         <h2 class="text-2xl font-bold text-gray-600">Order Summary</h2>
-        <div class="divide-y bg-indigo-100 px-4 py-6 space-y-4">
+        <div class="divide-y bg-gray-100 px-4 py-6 space-y-4">
           <div class="flex flex-row justify-between items-center py-2">
             <span>Order Amount</span>
             <span>{{ mainStore.cartTotal }}</span>
@@ -70,7 +70,7 @@
           
           <div>
             <button @click="placeOrder"
-              class="bg-orange-400 text-white hover:bg-orange-600 mt-8 block w-full py-3 px-6 border border-transparent uppercase rounded-md text-center font-medium">
+              class="orange-bg text-white hover:orange-bg mt-8 block w-full py-3 px-6 border border-transparent uppercase rounded-md text-center font-medium">
               Complete Order & Pay  
             </button>
           </div>
@@ -103,7 +103,7 @@ function removeCartItem(index) {
 async function placeOrder () {
   const payload = {
     id: 0,
-    userId: authStore.user?.id ?? 1,
+    // userId: authStore.user?.id ?? 1,
     itemIds: mainStore.cartItemIds,
     status: 'PENDING',
   }

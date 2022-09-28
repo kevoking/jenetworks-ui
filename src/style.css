@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.orange-bg {
+    background-color: #da6c00 !important;
+}
+.orange-border {
+    border-color: #da6c00 !important;
+}
+.orange-text {
+    color: #da6c00 !important;
+}
+
+.blue-bg {
+    background-color: #1f7abf !important;
+}
+
+.blue-border {
+    border-color: #1f7abf !important;
+}
+
+.blue-text {
+    color: #1f7abf !important;
+}

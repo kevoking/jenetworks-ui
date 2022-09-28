@@ -1,81 +1,125 @@
 <template>
-  <div class="bg-white">
+  <div class="bg-gray-300">
     <div class="relative overflow-hidden">
-      <div class=" sticky top-0 z-10">
+      <div class="sticky top-0 z-10">
         <Popover as="header" class="relative">
-          <div class="bg-gray-900 py-2 text-sm border-b border-gray-800">
+
+          <div class="bg-black py-2 text-sm border-b border-gray-800">
             <div class="max-w-7xl mx-auto">
-              <div class="flex flex-row justify-between items-center space-x-4">
+              <div class="flex flex-col lg:flex-row justify-between items-center space-x-4">
                 <div class="hidden space-x-1 md:flex divide-x divide-gray-800">
-                  <a v-for="item in primaryNavigation" :key="item.name" :href="item.href"
-                    class="px-4 text-base font-medium text-gray-600 hover:text-gray-400">{{ item.name }}</a>
+                  <router-link v-for="item in primaryNavigation" :key="item.name" :to="item.href"
+                    class="px-4 text-base font-medium text-gray-400 hover:text-gray-200">{{ item.name }}</router-link>
                 </div>
                 <div class="flex flex-row justify-end items-center space-x-2">
                   <a v-if="authStore.isLoggedIn" href="#" @click="logout"
-                    class="inline-flex items-center px-2 py-1 border-transparent text-base font-medium text-orange-400 hover:text-orange-700">
+                    class="inline-flex items-center px-2 py-1 border-transparent text-base font-medium text-gray-600 hover:text-gray-300">
                     Logout </a>
-                  <router-link v-if="authStore.isLoggedIn" to="/console" target="_blank"
-                    class="inline-flex items-center px-2 py-1 border-transparent text-base font-medium text-orange-400 hover:text-orange-700">
+                  <router-link v-if="authStore.isLoggedIn" to="/console"
+                    class="inline-flex items-center px-2 py-1 border-transparent text-base font-medium text-gray-600 hover:text-gray-300">
                     Admin </router-link>
-                  <a href="/my-account"
-                    class="inline-flex items-center px-2 py-1 border border-transparent text-base font-medium rounded-md text-white bg-orange-400 hover:bg-orange-700">
-                    My Account </a>
-                  <!-- <a href="/cart"
-                    class="inline-flex items-center px-2 py-2 border border-orange-400 text-base font-medium rounded-full text-orange-300">
-                    <ShoppingCartIcon class="h-4 w-4 text-orange-300" />
+                  <router-link to="/my-account"
+                    class="inline-flex items-center px-2 py-1 border border-transparent text-base font-medium rounded-md text-white orange-bg hover:orange-bg">
+                    My Account </router-link>
+                  <router-link to="/cart"
+                    class="inline-flex items-center px-2 py-2 border orange-border orange-bg text-base font-medium rounded-full">
+                    <ShoppingCartIcon class="h-4 w-4 text-white" />
                     <div>
-                      <span v-if="mainStore.shoppingCart.length > 0"
-                        class="absolute top-1 px-1 rounded-full bg-orange-400 text-gray-900 text-xs">
-                        {{ mainStore.shoppingCart.length }}
+                      <span class="absolute top-1 px-1 rounded-full bg-white text-gray-900 text-xs">
+                        {{ mainStore.shoppingCart ? mainStore.shoppingCart.length : 0 }}
                       </span>
                     </div>
-                  </a> -->
+                  </router-link>
                 </div>
               </div>
             </div>
           </div>
-          <div class="bg-gray-900 py-2 text-sm">
+
+          <div class="bg-white py-1 text-sm px-2 xl:px-12">
             <div class="max-w-7xl mx-auto">
               <div class="flex flex-row justify-between items-center space-x-4">
-                <div class="px-4">
-                  <a href="/">
+                <div class="">
+                  <router-link to="/">
                     <span class="sr-only">JenetWorks</span>
-                    <img class="w-auto h-10 lg:h-20" src="../assets/logo.png" alt="JenetWorks" />
-                  </a>
+                    <img class="w-auto h-24 lg:h-36" src="../assets/logo-lg.jpeg" alt="JenetWorks" />
+                  </router-link>
                 </div>
-                <div class="flex flex-row justify-start items-center space-x-2 text-gray-100">
-                  <div>
-                    <PhoneIcon
-                      class="flex-shrink-0 w-10 h-10 text-orange-400 border-2 border-orange-400 rounded-full px-2 py-1" />
+                <div class="space-y-1">
+
+                  <div class="flex flex-row justify-start items-center space-x-2 text-gray-700">
+                    <div>
+                      <MailIcon class="flex-shrink-0 w-6 h-6 orange-text" />
+                    </div>
+                    <div>
+                      <div class="flex flex-col orange-text">
+                        <span>info@jenetworks.co.ke</span>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div class="flex flex-col text-orange-400">
-                      <span class="font-bold">24/7</span>
-                      <span>+254 757779099</span>
+
+                  <div class="flex flex-row justify-start items-center space-x-2 text-gray-700">
+                    <div>
+                      <PhoneIcon class="flex-shrink-0 w-6 h-6 orange-text" />
+                    </div>
+                    <div>
+                      <div class="flex flex-col orange-text">
+                        <span>+254 757779099</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="bg-gray-800 border-b-2 border-b-white border-t border-t-gray-700 shadow-2xl shadow-black">
-            <nav class="relative max-w-7xl mx-auto flex items-center justify-between" aria-label="Global">
-              <div class="flex items-center flex-1">
+
+          <div
+            class="bg-gray-900 border-b-2 border-gray-800 border-t border-t-gray-700 shadow-2xl shadow-black">
+            <nav class="max-w-7xl mx-auto w-full flex items-center justify-between" aria-label="Global">
+              <div class="flex items-center flex-1 w-full">
                 <div class="flex items-center justify-between w-full md:w-auto">
 
                   <div class="-mr-2 flex items-center md:hidden">
                     <PopoverButton
-                      class="bg-gray-900 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus-ring-inset focus:ring-white">
+                      class="bg-black rounded-md p-2 inline-flex items-center justify-center orange-text hover:bg-black focus:outline-none focus:ring-2 focus-ring-inset focus:ring-white">
                       <span class="sr-only">Open main menu</span>
                       <MenuIcon class="h-6 w-6" aria-hidden="true" />
                     </PopoverButton>
                   </div>
                 </div>
-                <div class="hidden md:flex divide-x divide-gray-700 border-r border-l border-gray-700">
-                  <a v-for="item in navigation" :key="item.name" :href="item.href"
-                    class="px-2 py-2 text-base font-medium text-gray-300 hover:text-gray-100 hover:bg-gray-900">{{
-                        item.name
-                    }}</a>
+                <div
+                  class="hidden w-full md:flex justify-evenly divide-x divide-gray-800 border-r border-l border-gray-700">
+
+                  <div v-for="item in navigation" :key="item.name" class="flex justify-center items-center w-full">
+                    <Popover class="relative w-full" v-slot="{ open }">
+                      <PopoverButton
+                        :class="[open ? 'text-black orange-bg' : 'text-gray-300', 'w-full mx-auto flex justify-center items-center group rounded-none px-2 py-3.5 text-sm font-medium text-gray-400 hover:text-gray-200 hover:orange-bg']">
+                        <span>{{ item.name }}</span>
+                      </PopoverButton>
+
+                      <transition enter-active-class="transition ease-out duration-200"
+                        enter-from-class="opacity-0 translate-y-1" enter-to-class="opacity-100 translate-y-0"
+                        leave-active-class="transition ease-in duration-150"
+                        leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
+                        <PopoverPanel class="absolute z-10 mt-0 w-screen max-w-xs sm:px-0">
+                          <div
+                            class="shadow-2xl shadow-black rounded-b-md ring-1 ring-black ring-opacity-5 overflow-hidden">
+                            <div class="relative flex flex-col orange-bg">
+                              <router-link v-for="(childx) in item.items" :key="childx.name" :to="childx.href"
+                                class="p-2 block transition ease-in-out duration-150">
+                                <PopoverButton>
+                                  <span class="text-base font-medium text-black">
+                                  {{ childx.name }}
+                                </span>
+                                </PopoverButton>
+                              </router-link>
+                            </div>
+                          </div>
+                        </PopoverPanel>
+                      </transition>
+                    </Popover>
+
+                  </div>
+
                 </div>
               </div>
             </nav>
@@ -85,15 +129,15 @@
             enter-to-class="opacity-100 scale-100" leave-active-class="duration-100 ease-in"
             leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
             <PopoverPanel focus class="absolute top-0 inset-x-0 p-2 transition transform origin-top md:hidden">
-              <div class="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
+              <div class="rounded-lg shadow-md orange-bg ring-1 ring-black ring-opacity-5 overflow-hidden">
                 <div class="px-5 pt-4 flex items-center justify-between">
                   <div>
-                    <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-teal-500-cyan-600.svg"
-                      alt="" />
+                    <!-- <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-teal-500-cyan-600.svg"
+                      alt="" /> -->
                   </div>
                   <div class="-mr-2">
                     <PopoverButton
-                      class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
+                      class="bg-white rounded-md p-2 inline-flex items-center justify-center orange-text hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">
                       <span class="sr-only">Close menu</span>
                       <XIcon class="h-6 w-6" aria-hidden="true" />
                     </PopoverButton>
@@ -101,15 +145,21 @@
                 </div>
                 <div class="pt-5 pb-6">
                   <div class="px-2 space-y-1">
-                    <a v-for="item in navigation" :key="item.name" :href="item.href"
-                      class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">{{
-                          item.name
-                      }}</a>
-                  </div>
-                  <div class="mt-6 px-5">
-                    <a href="#"
-                      class="block text-center w-full py-3 px-4 rounded-md shadow bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-medium hover:from-teal-600 hover:to-cyan-700">My
-                      Account</a>
+                    <span v-for="(item, index) in navigation" :key="index"
+                      class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">
+                      <span class="text-gray-700">{{ item.name }}</span>
+                      
+                        <router-link v-for="(childx) in item.items" :key="childx.name" :to="childx.href"
+                          class="p-2 block transition ease-in-out duration-150">
+                          <PopoverButton>
+                            <span class="text-base font-medium text-black">
+                            {{ childx.name }}
+                          </span>
+                          </PopoverButton>
+                          
+                        </router-link>
+
+                    </span>
                   </div>
                 </div>
               </div>
@@ -118,42 +168,51 @@
         </Popover>
       </div>
 
-      <main style="min-height: 50vh;">
-        <router-view />
+      <main style="min-height: 50vh;" class="px-2 lg:px-24 xl:px-12">
+
+        <router-view style="min-height: 50vh;" class="max-w-7xl mx-auto w-full bg-gray-200" />
       </main>
-      <footer class="bg-gray-900 mt-12" aria-labelledby="footer-heading">
+
+      <footer class="bg-black px-4 text-sm" aria-labelledby="footer-heading">
         <h2 id="footer-heading" class="sr-only">Footer</h2>
         <div class="max-w-md mx-auto pt-12 px-4 sm:max-w-7xl sm:px-6 lg:pt-16 lg:px-8">
           <div class="xl:grid xl:grid-cols-3 xl:gap-8">
             <div class="space-y-8 xl:col-span-1">
-              <img class="h-10" src="../assets/white-logo.png" alt="JenetWorks" />
-              <p class="text-gray-500 text-base">Making the world a better place through constructing elegant
+              <img class="h-20" src="../assets/white-logo.png" alt="JenetWorks" />
+              <p class="orange-text text-base">Making the world a better place through constructing elegant
                 hierarchies.</p>
+              <div class="space-y-1">
+                <div v-for="(item, index) in contacts" :key="index" class="flex flex-row flex-nowrap space-x-4 justify-start items-center">
+                  <i :class="'orange-text pi ' + item.icon"></i>
+                  <span class="text-gray-300">{{ item.contact }}</span>
+                </div>
+              </div>
+
               <div class="flex space-x-6">
                 <a v-for="item in footerNavigation.social" :key="item.name" :href="item.href"
-                  class="text-gray-400 hover:text-gray-500">
+                  class="orange-text hover:text-gray-500">
                   <span class="sr-only">{{ item.name }}</span>
                   <component :is="item.icon" class="h-6 w-6" aria-hidden="true" />
                 </a>
               </div>
             </div>
-            <div class="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
+            <div class="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2 uppercase">
               <div class="md:grid md:grid-cols-2 md:gap-8">
                 <div>
-                  <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Solutions</h3>
+                  <h3 class="text-sm font-semibold orange-text tracking-wider uppercase">Solutions</h3>
                   <ul role="list" class="mt-4 space-y-4">
                     <li v-for="item in footerNavigation.solutions" :key="item.name">
-                      <a :href="item.href" class="text-base text-gray-500 hover:text-gray-300">
+                      <a :href="item.href" class="text-base text-xs text-gray-500 hover:text-gray-200">
                         {{ item.name }}
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div class="mt-12 md:mt-0">
-                  <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Support</h3>
+                  <h3 class="text-sm font-semibold orange-text tracking-wider uppercase">Support</h3>
                   <ul role="list" class="mt-4 space-y-4">
                     <li v-for="item in footerNavigation.support" :key="item.name">
-                      <a :href="item.href" class="text-base text-gray-500 hover:text-gray-300">
+                      <a :href="item.href" class="text-base text-xs text-gray-500 hover:text-gray-200">
                         {{ item.name }}
                       </a>
                     </li>
@@ -162,20 +221,20 @@
               </div>
               <div class="md:grid md:grid-cols-2 md:gap-8">
                 <div>
-                  <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Company</h3>
+                  <h3 class="text-sm font-semibold orange-text tracking-wider uppercase">Company</h3>
                   <ul role="list" class="mt-4 space-y-4">
                     <li v-for="item in footerNavigation.company" :key="item.name">
-                      <a :href="item.href" class="text-base text-gray-500 hover:text-gray-300">
+                      <a :href="item.href" class="text-base text-xs text-gray-500 hover:text-gray-200">
                         {{ item.name }}
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div class="mt-12 md:mt-0">
-                  <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
+                  <h3 class="text-sm font-semibold orange-text tracking-wider uppercase">Legal</h3>
                   <ul role="list" class="mt-4 space-y-4">
                     <li v-for="item in footerNavigation.legal" :key="item.name">
-                      <a :href="item.href" class="text-base text-gray-500 hover:text-gray-300">
+                      <a :href="item.href" class="text-base text-xs text-gray-500 hover:text-gray-200">
                         {{ item.name }}
                       </a>
                     </li>
@@ -184,8 +243,8 @@
               </div>
             </div>
           </div>
-          <div class="mt-12 border-t border-gray-500 py-8">
-            <p class="text-base text-gray-400 xl:text-center">&copy; 2020 JenetWorks, Inc. All rights reserved.</p>
+          <div class="mt-12 border-t border-gray-800 py-8">
+            <p class="text-base text-xs orange-text xl:text-center">&copy; 2020 JenetWorks, Inc. All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -195,7 +254,7 @@
 
 <script setup>
 import { defineComponent, h } from 'vue'
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+import { Popover, PopoverButton, PopoverPanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import {
   CloudUploadIcon,
   CogIcon,
@@ -203,56 +262,150 @@ import {
   MenuIcon,
   ShoppingCartIcon,
   PhoneIcon,
-  RefreshIcon,
+  MailIcon,
   ServerIcon,
   ShieldCheckIcon,
   XIcon,
 } from '@heroicons/vue/outline'
 import { ChevronRightIcon, ExternalLinkIcon } from '@heroicons/vue/solid'
 import { useMainStore, useAuthStore } from '../store'
+import {PrimeIcons} from 'primevue/api';
+
 
 const mainStore = useMainStore()
 const authStore = useAuthStore()
 
+const contacts = [
+  {
+    icon: 'pi-map-marker',
+    contact: '104 RIVERSIDE DRIVE, WESTLANDS NAIROBI, KENYA.'
+  },
+  {
+    icon: 'pi-phone',
+    contact: '254757779099'
+  },
+  {
+    icon: 'pi-envelope',
+    contact: 'info@jenetworks.co.ke'
+  }
+]
+
 const primaryNavigation = [
   { name: 'Home', href: '/' },
-  { name: 'About Us', href: '#' },
+  { name: 'About Us', href: '/about' },
   { name: 'Blog', href: '#' },
   { name: 'Contact Us', href: '#' },
 ]
 
 const navigation = [
-  { name: 'Cloud', href: '#' },
-  { name: 'Dedicated Servers', href: '#' },
-  { name: 'VPS', href: '#' },
-  { name: 'Corporate Hosting', href: '#' },
-  { name: 'Business Solution', href: '#' },
-  { name: 'Corporate Profile', href: '#' },
-  { name: 'Data Center', href: '#' },
+  {
+    name: 'Hybrid Cloud', href: '#', items: [
+      {
+        name: 'JE Networks Hybrid Cloud', href: '/product/hybrid-cloud'
+      }
+    ]
+  },
+  {
+    name: 'Dedicated Servers', href: '#', items: [
+      {
+        name: 'Dedicated Servers Kenya', href: '/product/dedicated-server'
+      }
+    ]
+  },
+  {
+    name: 'VPS', href: '#', items: [
+      {
+        name: 'VPS Kenya', href: '/product/vps'
+      }
+    ]
+  },
+  {
+    name: 'Corporate Hosting', href: '#', items: [
+      {
+        name: 'Shared Hosting', href: '/product/shared-hosting'
+      },
+    ]
+  },
+  {
+    name: 'Business Solution', href: '#', items: [
+      {
+        name: 'Proffessional Email hosting', href: '/product/email-hosting',
+      },
+      {
+        name: 'Domain Management', href: '/product/domains',
+      },
+      // {
+      //   name: 'G-Suite', href: '#',
+      // }, {
+      //   name: 'Microsoft Azure', href: '#',
+      // }, {
+      //   name: 'Microsoft 365', href: '#',
+      // }, {
+      //   name: 'SAP Appliction hosting Services', href: '#',
+      // }
+    ]
+  },
+  {
+    name: 'Data Center', href: '#', items: [
+      {
+        name: 'JE Networks SDDC', href: '/product/sddc',
+      },
+      {
+        name: 'Co-Location Data Center', href: '/product/co-location',
+      },
+    ]
+  },
+  {
+    name: 'Acronis', href: '#', items: [
+      {
+        name: 'Acronis Cloud Data Back Up', href: '/product/acronis',
+      },
+    ]
+  },
+  {
+    name: 'Disaster Recovery', href: '#', items: [
+      {
+        name: 'Jenetworks DRaaS Solutions', href: '/product/draas',
+      },
+    ]
+  },
+  {
+    name: 'Corporate Profile', href: '#', items: [
+      {
+        name: 'About us', href: '/about',
+      },
+      // {
+      //   name: 'Life @ Jenetworks', href: '#',
+      // }, {
+      //   name: 'Careers', href: '#',
+      // }, {
+      //   name: 'Our Clients', href: '#',
+      // }
+    ]
+  },
 ]
 
 const footerNavigation = {
   solutions: [
-    { name: 'Marketing', href: '#' },
-    { name: 'Analytics', href: '#' },
-    { name: 'Commerce', href: '#' },
-    { name: 'Insights', href: '#' },
+    { name: 'VPS', href: '/product/vps' },
+    { name: 'Dedicated Servers', href: '/product/dedicated-server' },
+    { name: 'Hybrid Cloud', href: '/product/hybrid-cloud' },
+    { name: 'SDDC Data Centers', href: '/product/sddc' },
+    { name: 'Co-Location Data Centers', href: '/product/co-location' },
+  ],
+  businessSolutions: [
+    { name: 'Shared Hosting', href: '/product/shared-hosting' },
+    { name: 'Domain Management', href: '/product/domains' },
+    { name: 'Email Hosting', href: '/product/email-hosting' },
   ],
   support: [
-    { name: 'Pricing', href: '#' },
-    { name: 'Documentation', href: '#' },
-    { name: 'Guides', href: '#' },
-    { name: 'API Status', href: '#' },
+    { name: 'Frequently Asked Questions', href: '#' },
   ],
   company: [
-    { name: 'About', href: '#' },
-    { name: 'Blog', href: '#' },
-    { name: 'Jobs', href: '#' },
-    { name: 'Press', href: '#' },
+    { name: 'About', href: '/about' },
     { name: 'Partners', href: '#' },
   ],
   legal: [
-    { name: 'Claim', href: '#' },
     { name: 'Privacy', href: '#' },
     { name: 'Terms', href: '#' },
   ],

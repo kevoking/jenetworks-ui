@@ -1,12 +1,12 @@
 <template>
 	<!-- Testimonial section -->
   <div class="mt-24 mb-24">
-    <div class="max-w-7xl flex justify-center mx-auto">
+    <div class="flex justify-center">
       <h2 class="py-8 text-2xl font-bold text-gray-600">What Our Clients Are Saying</h2>
     </div>
       <carousel :items-to-show="1" :autoplay="3000" :wrap-around="true">
         <slide v-for="slide in 10" :key="slide">
-          <div class="pb-16 bg-gradient-to-r from-indigo-300 to-indigo-600 lg:pb-0 lg:z-10 lg:relative w-full my-24">
+          <div class="pb-16 bg-gradient-to-r blue-bg lg:pb-0 lg:z-10 lg:relative w-full my-24">
             <div class="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-8">
               <div class="relative lg:-my-8">
                 <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1/2 bg-white lg:hidden" />
@@ -27,7 +27,7 @@
                     </div>
                     <footer class="mt-6">
                       <p class="text-base font-medium text-white">Judith Black</p>
-                      <p class="text-base font-medium text-cyan-100">CEO at PureInsights</p>
+                      <p class="text-base font-medium blue-text">CEO at PureInsights</p>
                     </footer>
                   </blockquote>
                 </div>

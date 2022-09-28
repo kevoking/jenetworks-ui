@@ -1,11 +1,13 @@
 <template>
-	<div class="max-w-7xl mx-auto flex justify-center items-center py-12">
+	<div class="flex justify-center items-center py-12">
 		<div class="mt-12 sm:mx-auto sm:w-full sm:max-w-md">
-			<div class="bg-white py-8 px-4 shadow-2xl sm:rounded-lg sm:px-10">
+			<div class="bg-white py-8 px-4 shadow-none sm:rounded-lg sm:px-10">
+
+				<h3 class="mb-4 text-xl font-bold orange-text">Login</h3>
 
 				<Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
 					<div class="space-y-6">
-						<div severity="error" v-if="isLoggedIn === false">{{ loginMessage }}</div>
+						<Message severity="error" v-if="errorMessage !== ''">{{ errorMessage }}</Message>
 						<div v-if="errors.apiError">
 							<div class="text-red-600 bg-red-50 px-4 py-2 border-l-4 border-red-600">{{ errors.apiError }}</div>
 						</div>
@@ -28,23 +30,29 @@
 							</div>
 						</div>
 
-						<div class="flex items-center justify-between">
+						<!-- <div class="flex items-center justify-between">
 							<div class="flex items-center">
-								<!-- <input id="remember-me" name="remember-me" type="checkbox"
-									class="h-4 w-4 text-blue-400 focus:ring-blue-500 border-gray-300 rounded" />
-								<label for="remember-me" class="ml-2 block text-sm text-gray-900"> Remember me </label> -->
+								<input id="remember-me" name="remember-me" type="checkbox"
+									class="h-4 w-4 blue-text focus:ring-blue-500 border-gray-300 rounded" />
+								<label for="remember-me" class="ml-2 block text-sm text-gray-900"> Remember me </label>
 							</div>
 
 							<div class="text-sm">
-								<a href="#" class="font-medium text-blue-400 hover:text-blue-500"> Forgot your
+								<a href="#" class="font-medium blue-text hover:blue-text"> Forgot your
 									password? </a>
 							</div>
-						</div>
+						</div> -->
 
 						<div>
 							<button type="submit"
 								class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-400 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Sign
 								in</button>
+						</div>
+						<div class="flex items-center justify-center">
+
+							<div class="text-sm">
+								<router-link to="/register" class="font-medium blue-text hover:blue-text"> Don't have an account? Register Here </router-link>
+							</div>
 						</div>
 					</div>
 				</Form>
@@ -63,7 +71,7 @@ import * as Yup from 'yup'
 import { watch, computed, ref } from 'vue'
 
 const authStore = useAuthStore();
-const loginMessage = computed(() => authStore.errorMessage)
+const errorMessage = computed(() => authStore.errorMessage)
 const isLoggedIn = computed(() => authStore.isLoggedIn)
 
 const schema = Yup.object().shape({
