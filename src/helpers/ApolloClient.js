@@ -1,7 +1,7 @@
 import ApolloClient from 'apollo-boost'
 
 const apolloClient = new ApolloClient({
-  uri: 'http://217.21.122.59:9292/graphql',
+  uri: 'https://jenetworks.co.ke/graphql',
   request: (operation) => {
     const token = localStorage.getItem('accessToken')
     operation.setContext({

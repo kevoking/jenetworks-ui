@@ -1,50 +1,44 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
     <div>
-        <Dialog header="Dedicated Server" v-model:visible="displayModal" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
+        <Dialog header="Dedicated Server" v-model:visible="displayModal" @hide="closeModal" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
             :style="{ width: '40vw' }" :modal="true">
             <div class="">
                 <div class="space-y-4">
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="">
-                            <label for="size" class="block text-sm font-medium text-gray-700">Processor Type</label>
-                            <Dropdown :showClear="true" :filter="true" v-model="selectedProcesserType" :options="processerTypes" optionValue="id" optionLabel="type" placeholder="Select a Processor Type" class="block w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
-                        </div>
-                    </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="">
-                            <label for="size" class="block text-sm font-medium text-gray-700">CPU Type</label>
-                            <Dropdown :showClear="true" :filter="true" v-model="selectedCpuType" :options="cpuTypes" optionValue="id" optionLabel="name" placeholder="Select a CPU Type" class="block w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
+                            <label for="size" class=" text-sm font-medium text-gray-700">Processor Type</label>
+                            <Dropdown :showClear="true" :filter="true" v-model="selectedProcesserType" :options="processerTypes" optionValue="id" optionLabel="type" placeholder="Select a Processor Type" class=" w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
                         </div>
                         <div class="">
-                            <label for="size" class="block text-sm font-medium text-gray-700">Clock Speed</label>
-                            <Dropdown :showClear="true" :filter="true" v-model="selectedCpuClockSpeed" :options="cpuClockSpeeds" optionValue="id" optionLabel="speed" placeholder="Select a Clock Speed" class="block w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
+                            <label for="size" class=" text-sm font-medium text-gray-700">Clock Speed</label>
+                            <Dropdown :showClear="true" :filter="true" v-model="selectedCpuClockSpeed" :options="cpuClockSpeeds" optionValue="id" optionLabel="speed" placeholder="Select a Clock Speed" class=" w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
                         </div>
                     </div>
                     <div class="grid grid-cols-1 gap-4">
                         <div class="">
-                            <label for="size" class="block text-sm font-medium text-gray-700">Ram Size</label>
-                            <Dropdown :showClear="true" :filter="true" v-model="selectedRam" :options="rams" optionValue="id" optionLabel="size" placeholder="Select a Ram Size" class="block w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
+                            <label for="size" class=" text-sm font-medium text-gray-700">Ram Size</label>
+                            <Dropdown :showClear="true" :filter="true" v-model="selectedRam" :options="rams" optionValue="id" optionLabel="size" placeholder="Select a Ram Size" class=" w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="">
-                            <label for="size" class="block text-sm font-medium text-gray-700">Rom Size</label>
-                            <Dropdown :showClear="true" :filter="true" v-model="selectedRom" :options="roms" optionValue="id" optionLabel="size" placeholder="Select a Rom Size" class="block w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
+                            <label for="size" class=" text-sm font-medium text-gray-700">Rom Size</label>
+                            <Dropdown :showClear="true" :filter="true" v-model="selectedRom" :options="roms" optionValue="id" optionLabel="size" placeholder="Select a Rom Size" class=" w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
                         </div>
                         <div class="">
-                            <label for="size" class="block text-sm font-medium text-gray-700">Rom Type</label>
-                            <Dropdown :showClear="true" :filter="true" v-model="selectedRomType" :options="romTypes" placeholder="Select a Rom Type" class="block w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
+                            <label for="size" class=" text-sm font-medium text-gray-700">Rom Type</label>
+                            <Dropdown :showClear="true" :filter="true" v-model="selectedRomType" :options="romTypes" placeholder="Select a Rom Type" class=" w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
                         </div>
                     </div>
                     <div class="">
-                        <label for="description" class="block text-sm font-medium text-gray-700">Bandwidth</label>
-                        <Dropdown :showClear="true" :filter="true" v-model="selectedBandwidth" :options="bandwidths" optionValue="id" optionLabel="size" placeholder="Select a Bandwidth" class="block w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
+                        <label for="description" class=" text-sm font-medium text-gray-700">Bandwidth</label>
+                        <Dropdown :showClear="true" :filter="true" v-model="selectedBandwidth" :options="bandwidths" optionValue="id" optionLabel="size" placeholder="Select a Bandwidth" class=" w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" />
                     </div>
                     <div class="">
-                        <label for="ips" class="block text-sm font-medium text-gray-700">IP's</label>
+                        <label for="ips" class=" text-sm font-medium text-gray-700">IP's</label>
                         <InputText type="text" v-model="selectedIps" id="ips"
-                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none  focus:blue-border sm:text-sm" />
+                            class="mt-1  w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none  focus:blue-border sm:text-sm" />
                     </div>
                 </div>
             </div>
@@ -73,6 +67,8 @@ const props = defineProps({
 const toast = useToast();
 const measurementStore = useMeasurementStore();
 
+measurementStore.getRams()
+measurementStore.getRoms()
 const romTypes = ['SSD', 'HHD'];
 const processerTypes = computed(() => measurementStore.processerTypes)
 const cpuTypes = computed(() => measurementStore.cpuTypes)
@@ -115,7 +111,7 @@ async function submitDedicatedServer() {
     const payload = {
         id: 0,
         processorTypeId: selectedProcesserType.value,
-        cpuTypeId: selectedCpuType.value,
+        cpuTypeId: 1,
         cpuClockSpeedId: selectedCpuClockSpeed.value,
         ramSizeId: selectedRam.value,
         romType: selectedRomType.value,

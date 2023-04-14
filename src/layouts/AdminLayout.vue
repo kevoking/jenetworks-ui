@@ -165,7 +165,7 @@ import { SearchIcon } from '@heroicons/vue/solid'
 const route = useRoute()
 const navigation = [
   { name: 'Dashboard', href: '/console', icon: HomeIcon, current: true },
-  { name: 'Specifications', href: '/measurements', icon: AdjustmentsIcon, current: false },
+  { name: 'Specifications', href: '/measurements/bandwidth', icon: AdjustmentsIcon, current: false },
   // { name: 'Product categories', href: '/product-categories', icon: CalendarIcon, current: false },
   { name: 'Dedicated Servers', href: '/dedicated-servers', icon: InboxIcon, current: false },
   { name: 'VPS', href: '/vps-list', icon: InboxIcon, current: false },

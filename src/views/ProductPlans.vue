@@ -160,7 +160,7 @@ const route = useRoute()
 const mainStore = useMainStore()
 
 onMounted(() => {
-	mainStore.getPaymentPlans(route.params.type, route.params.id)
+	// mainStore.getPaymentPlans(route.params.type, route.params.id)
 })
 
 const type = ref(route.params.type);

@@ -17,12 +17,10 @@
                         :rowsPerPageOptions="[10, 20, 50]" responsiveLayout="scroll"
                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords}">
                         <Column field="processorType.type" header="Processor Type"></Column>
-                        <Column field="cpuType.name" header="Cpu Type"></Column>
                         <Column field="cpuClockSpeed.speed" header="Cpu Clock Speed"></Column>
                         <Column field="ramSize.size" header="Ram"></Column>
-                        <Column field="romType" header="Rom Type"></Column>
-                        <Column field="romSize.size" header="Rom"></Column>
                         <Column field="bandWidthSize.size" header="BandWidth"></Column>
+                        <Column field="romSize.size" header="Storage"></Column>
                         <Column field="ips" header="IPS"></Column>
                         <Column field="status" header="Status"></Column>
                         <Column field="status" header="Action">
@@ -40,11 +38,13 @@
                 <!-- /End replace -->
             </div>
         </div>
+
+    <ConfirmDialog></ConfirmDialog>
         <VpsForm />
     </div>
 </template>
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useMeasurementStore } from '../../store';
 import VpsForm from '../../components/admin/dialogs/VpsForm.vue'
 
@@ -53,6 +53,11 @@ import {
     TrashIcon
 } from '@heroicons/vue/outline'
 
+import { useConfirm } from "primevue/useconfirm";
+import { useToast } from "primevue/usetoast";
+
+const confirm = useConfirm();
+const toast = useToast();
 const measurementStore = useMeasurementStore();
 
 measurementStore.getVpsList()
@@ -65,8 +70,26 @@ measurementStore.getOperatingSystems()
 measurementStore.getBandwidths()
 measurementStore.getCpuClockSpeeds()
 
-const servers = computed(() => measurementStore.vpsList)
+const servers = ref(computed(() => measurementStore.vpsList.filter(e => e.status === 'Active')))
+function confirmDelete(id) {
 
+confirm.require({
+  message: 'Do you want to delete this record?',
+  header: 'Delete Confirmation',
+  icon: 'pi pi-info-circle',
+  acceptClass: 'p-button-danger',
+  accept: () => {
+    measurementStore.deleteVps(id)
+    // toast.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
+  },
+  reject: () => {
+    //toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+  },
+  onHide: () => {
+    //this.$toast.add({ severity: 'error', summary: 'Hide', detail: 'You have hidden', life: 3000 });
+  }
+});
+}
 function toggleModal(target) {
     measurementStore.modal = target
 }

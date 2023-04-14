@@ -36,9 +36,8 @@
                 <div class="flex flex-row justify-between items-end w-full space-x-8">
                   <div class="mt-2 text-gray-900" v-if="getItemProduct(item)">
                     <p class="flex items-baseline space-x-2">
-                      <span class="text-lg tracking-tight">{{ getItemProduct(item).cpuType.name }}</span>
                       <span class="text-lg tracking-tight">{{ getItemProduct(item).processorType.type }}</span>
-                      <span class="text-lg tracking-tight">{{ getItemProduct(item).cpuClockSpeed.speed }}</span>
+                      <!-- <span class="text-lg tracking-tight">{{ getItemProduct(item).cpuClockSpeed.speed }}</span> -->
                     </p>
                     <p>
                       <span class="ml-1 text-lg">RAM {{ getItemProduct(item).ramSize.size }}</span>
@@ -54,9 +53,9 @@
                     <p>
                       <span class="ml-1 text-lg">BandWidth {{ getItemProduct(item).bandWidthSize.size }}</span>
                     </p>
-                    <p>
+                    <!-- <p>
                       <span class="ml-1 text-lg">{{ getItemProduct(item).ips }} IP's</span>
-                    </p>
+                    </p> -->
                   </div>
                   <div class="flex justify-end">
                     <h3 class="flex space-x-2">
@@ -78,7 +77,7 @@
         <div class="divide-y bg-indigo-100 px-4 py-6 space-y-4">
           <div class="flex flex-row justify-between items-center text-lg py-2">
             <span>Total Amount</span>
-            <span class="font-semibold">Ksh. {{ mainStore.orderTotal }}</span>
+            <span class="font-semibold">Ksh {{ mainStore.orderTotal?.toLocaleString() }}</span>
           </div>
           <div>
             <h3 class="text-gray-600 text-lg font-bold">Pay Via Mpesa</h3>

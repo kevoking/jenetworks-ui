@@ -10,18 +10,35 @@
 		</div>
 
 		<div class="card bg-white pt-8 pb-4 mt-4">
-			<Carousel :value="partners" :numVisible="4" :numScroll="1" :responsiveOptions="responsiveOptions"
-				class="custom-carousel" :circular="true" :autoplayInterval="2000">
-				<template #item="slotProps">
-					<div class="product-item">
-						<div class="product-item-content">
-							<div class="mb-3 px-2 flex flex-row justify-center items-center">
-								<img :src="slotProps.data" class="h-20" />
+
+			<div class="md:hidden">
+				<Carousel :value="partners" :numVisible="2" :numScroll="1" :responsiveOptions="responsiveOptions"
+					class="custom-carousel" :circular="true" :autoplayInterval="2000">
+					<template #item="slotProps">
+						<div class="product-item">
+							<div class="product-item-content">
+								<div class="mb-3 px-2 flex flex-row justify-center items-center">
+									<img :src="slotProps.data" class="h-20" />
+								</div>
 							</div>
 						</div>
-					</div>
-				</template>
-			</Carousel>
+					</template>
+				</Carousel>
+			</div>
+			<div class="hidden md:flex">
+				<Carousel :value="partners" :numVisible="4" :numScroll="1" :responsiveOptions="responsiveOptions"
+					class="custom-carousel" :circular="true" :autoplayInterval="2000">
+					<template #item="slotProps">
+						<div class="product-item">
+							<div class="product-item-content">
+								<div class="mb-3 px-2 flex flex-row justify-center items-center">
+									<img :src="slotProps.data" class="h-20" />
+								</div>
+							</div>
+						</div>
+					</template>
+				</Carousel>
+			</div>
 		</div>
 
 	</div>

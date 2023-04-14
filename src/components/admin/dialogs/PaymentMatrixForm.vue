@@ -1,7 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
     <div>
-        <Dialog header="Payment Matrix" v-model:visible="displayModal" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
+        <Dialog header="Payment Matrix" v-model:visible="displayModal" @hide="closeModal" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
             :style="{ width: '40vw' }" :modal="true">
             <div class="">
                 <div class="space-y-4">
@@ -11,7 +11,7 @@
                             <Dropdown v-model="selectedVps" :options="vpsList" :showClear="true" :filter="true" optionLabel="id" placeholder="Select a VPS" class=" w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" >
                                 <template #value="slotProps">
                                     <div class="country-item country-item-value" v-if="slotProps.value">
-                                        <div>{{slotProps.value.cpuType.name}}</div>
+                                        <div>{{slotProps.value.processorType.type}}/{{slotProps.value.ramSize.size}} RAM/{{slotProps.value.romSize.size}}/{{slotProps.value.bandWidthSize.size}} Bandwidth</div>
                                     </div>
                                     <span v-else>
                                         {{slotProps.placeholder}}
@@ -19,7 +19,7 @@
                                 </template>
                                 <template #option="slotProps">
                                     <div class="country-item">
-                                        <div>{{slotProps.option.cpuType.name}}</div>
+                                        <div>{{slotProps.option.processorType.type}}/{{slotProps.option.ramSize.size}} RAM/{{slotProps.option.romSize.size}}/{{slotProps.option.bandWidthSize.size}} Bandwidth</div>
                                     </div>
                                 </template>
                             </Dropdown>
@@ -31,7 +31,7 @@
                             <Dropdown v-model="selectedServer" :showClear="true" :filter="true" :options="dedicatedServers" optionLabel="id" placeholder="Select a Dedicated Server" class=" w-full border border-gray-300 rounded-md shadow-sm px-3 focus:outline-none  focus:blue-border sm:text-sm" >
                                 <template #value="slotProps">
                                     <div class="country-item country-item-value" v-if="slotProps.value">
-                                        <div>{{slotProps.value.cpuType.name}}</div>
+                                        <div>{{slotProps.value.processorType.type}}/{{slotProps.value.ramSize.size}} RAM/{{slotProps.value.romSize.size}}/{{slotProps.value.bandWidthSize.size}} Bandwidth</div>
                                     </div>
                                     <span v-else>
                                         {{slotProps.placeholder}}
@@ -39,7 +39,7 @@
                                 </template>
                                 <template #option="slotProps">
                                     <div class="country-item">
-                                        <div>{{slotProps.option.cpuType.name}}</div>
+                                        <div>{{slotProps.option.processorType.type}}/{{slotProps.option.ramSize.size}} RAM/{{slotProps.option.romSize.size}}/{{slotProps.option.bandWidthSize.size}} Bandwidth</div>
                                     </div>
                                 </template>
                             </Dropdown>
@@ -102,11 +102,11 @@ measurementStore.getVpsList()
 // measurementStore.getShar
 measurementStore.getEmailPlans()
 
-const dedicatedServers = computed(() => measurementStore.dedicatedServers)
-const operatingSystems = computed(() => measurementStore.operatingSystems)
-const vpsList = computed(() => measurementStore.vpsList)
-const sharedHostingList = computed(() => measurementStore.sharedHostingList)
-const emailPLanList = computed(() => measurementStore.emailPlans)
+const dedicatedServers = ref(computed(() => measurementStore.dedicatedServers.filter(e => e.status === 'Active')))
+const operatingSystems = ref(computed(() => measurementStore.operatingSystems.filter(e => e.status === 'Active')))
+const vpsList = ref(computed(() => measurementStore.vpsList.filter(e => e.status === 'Active')))
+const sharedHostingList = ref(computed(() => measurementStore.sharedHostingList.filter(e => e.status === 'Active')))
+const emailPLanList = ref(computed(() => measurementStore.emailPlans.filter(e => e.status === 'Active')))
 
 const selectedServer = ref(null)
 const selectedOs = ref(null)
@@ -147,7 +147,7 @@ async function submitPaymentMatrix() {
         amount: amount.value
     }
 
-    return await measurementStore.savePaymentMatrix(payload)
+    return measurementStore.savePaymentMatrix(payload)
 }
 
 </script>

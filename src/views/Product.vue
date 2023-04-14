@@ -1,8 +1,8 @@
 <template>
 	<div class="">
 		<div class="">
-			<div class="">
-				<img v-if="content" :src="content.banner" />
+			<div class="mb-12 w-full">
+				<img class="w-full" v-if="content" :src="content.banner" />
 			</div>
 		</div>
 
@@ -13,12 +13,15 @@
 						{{ content.title }}
 					</span>
 				</h3>
-				<div v-if="content" class="text-gray-700 bg-gray-200 px-4 py-8 rounded-md overflow-hidden w-full divide-y divide-gray-400 space-y-4">
+				<div v-if="content"
+					class="text-gray-700 bg-gray-200 px-4 py-8 rounded-md overflow-hidden w-full divide-y divide-gray-400 space-y-4">
 					<div class="py-4">{{ content.description }}</div>
 					<div v-if="content.intro" class="py-4">{{ content.intro }}</div>
 				</div>
 			</div>
-			<div class="mt-8" v-if="tableData.length > 0">
+			
+			<div v-if="tableData">
+				<div class="mt-8" v-if="tableData.length > 0">
 				<div class="mt-20 flex flex-col">
 					<div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
 						<div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -28,17 +31,17 @@
 										<tr>
 											<th scope="col"
 												class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-												Plan</th>
+												Code</th>
 											<th scope="col"
 												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-												IDs
+												Name
 											</th>
-											<th scope="col"
+											<!-- <th scope="col"
 												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Space
-											</th>
+											</th> -->
 											<th scope="col"
 												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-												Webmail
+												Amount
 											</th>
 											<th scope="col"
 												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Order
@@ -49,27 +52,30 @@
 										<tr v-for="(row, index) in tableData" :key="index">
 											<td
 												class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-700 sm:pl-6">
-												{{ row.emailPlan.name }}</td>
+												{{ row.emailPlan.code }}</td>
 											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{{
-													row.emailIds.ids
+											row.emailPlan.name
 											}}</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
-												{{ row.emailSpace.totalSpace }}</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{{ row.webmail
+											<!-- <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+												{{ row.emailSpace.totalSpace }}</td> -->
+											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{{ row.amount
 											}}</td>
 											<td class="whitespace-nowrap px-3 py-4 text-sm text-black">
-												<router-link v-if="content"
-													:to="'/product-plans/' + row.id + '/' + content.type"
-													class="orange-bg py-1 px-4 my-1 text-sm border border-transparent rounded-md sahdow-xl shadow-black text-center">
-													Buy
-												</router-link>
+												<button @click="addCartItem(row)"
+													class="bg-orange-400 hover:bg-orange-500 block py-2 px-4 border border-transparent rounded-xl sahdow-xl shadow-black text-center">
+													<p class="flex items-baseline text-gray-900">
+														<span
+															class="ml-1 capitalize text-sm flex flex-nowrap">Order</span>
+													</p>
+												</button>
 											</td>
 										</tr>
 
 										<!-- More people... -->
 									</tbody>
 								</table>
-								<table v-else-if="type === 'shared-hosting'" class="min-w-full divide-y divide-gray-300">
+								<table v-else-if="type === 'shared-hosting'"
+									class="min-w-full divide-y divide-gray-300">
 									<thead class="orange-bg">
 										<tr>
 											<th scope="col"
@@ -80,7 +86,8 @@
 												Hosted Domain
 											</th>
 											<th scope="col"
-												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Disk Space
+												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Disk
+												Space
 											</th>
 											<th scope="col"
 												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
@@ -97,11 +104,12 @@
 												class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-700 sm:pl-6">
 												{{ row.controlPanel }}</td>
 											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{{
-													row.hostedDomain
+											row.hostedDomain
 											}}</td>
 											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
 												{{ row.diskSpace.size }}</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{{ row.bandWidthSize.size
+											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{{
+											row.bandWidthSize.size
 											}}</td>
 											<td class="whitespace-nowrap px-3 py-4 text-sm text-black">
 												<router-link v-if="content"
@@ -120,47 +128,98 @@
 										<tr>
 											<th scope="col"
 												class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-												Processor Type</th>
+												OS</th>
 											<th scope="col"
-												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Cpu
-												Type
+												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+												Processor Type
+											</th>
+											<!-- <th scope="col"
+												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+												Cpu Type
+											</th> -->
+											<!-- <th scope="col"
+												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+												Cpu Clock Speed
+											</th> -->
+											<th scope="col"
+												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+												Ram
 											</th>
 											<th scope="col"
-												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Ram
+												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+												Storage
 											</th>
 											<th scope="col"
-												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Rom
-												Type
+												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+												BandWidth
+											</th>
+											<!-- <th scope="col"
+												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+												IPs
+											</th> -->
+											<th scope="col"
+												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+												Amount
 											</th>
 											<th scope="col"
-												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Rom
-											</th>
-											<th scope="col"
-												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Order
+												class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+												Order
 											</th>
 										</tr>
 									</thead>
-									<tbody class="divide-y divide-gray-300 bg-gray-200">
+									<tbody class="divide-y divide-gray-700 bg-gray-900">
 										<tr v-for="(row, index) in tableData" :key="index">
 											<td
-												class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-700 sm:pl-6">
-												{{ row.processorType.type }}</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{{
-													row.cpuType.name
-											}}</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
-												{{ row.ramSize.size }}</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{{ row.romType
-											}}</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{{
-													row.romSize.size
-											}}</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-black">
-												<router-link v-if="content"
-													:to="'/product-plans/' + row.id + '/' + content.type"
-													class="orange-bg py-1 px-4 my-1 text-sm border border-transparent rounded-md sahdow-xl shadow-black text-center">
-													Buy
-												</router-link>
+												class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+												<span>{{ row.os.name }}</span>
+											</td>
+											<td
+												class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+												<span>{{ row.vps?.processorType.type }}</span>
+												<span>{{ row.dedicatedServer?.processorType.type }}</span>
+											</td>
+											<!-- <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												<span>{{ row.vps?.cpuType.name }}</span>
+												<span>{{ row.dedicatedServer?.cpuType.name }}</span>
+											</td> -->
+											<!-- <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												<span>{{ row.vps?.cpuClockSpeed?.speed }}</span>
+												<span>{{ row.dedicatedServer?.cpuClockSpeed?.speed }}</span>
+											</td> -->
+											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												<span>{{ row.vps?.ramSize.size }}</span>
+												<span>{{ row.dedicatedServer?.ramSize.size }}</span>
+											</td>
+											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												<div class="px-2">
+													<span>{{ row.vps?.romType }}</span>
+													<span>{{ row.dedicatedServer?.romType }}</span>
+												</div>
+												<div>
+													<span>{{ row.vps?.romSize.size }}</span>
+													<span>{{ row.dedicatedServer?.romSize.size }}</span>
+												</div>
+											</td>
+											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												<span>{{ row.vps?.bandWidthSize.size }}</span>
+												<span>{{ row.dedicatedServer?.bandWidthSize.size }}</span>
+											</td>
+											<!-- <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+												<span>{{ row.vps?.ips }}</span>
+												<span>{{ row.dedicatedServer?.ips }}</span>
+											</td> -->
+											<td
+												class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
+												<span>Ksh {{ row.amount?.toLocaleString() }}</span>
+											</td>
+											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-900">
+												<button @click="addCartItem(row)"
+													class="bg-orange-400 hover:bg-orange-500 block py-2 px-4 border border-transparent rounded-xl sahdow-xl shadow-black text-center">
+													<p class="flex items-baseline text-gray-900">
+														<span
+															class="ml-1 capitalize text-sm flex flex-nowrap">Add To Cart</span>
+													</p>
+												</button>
 											</td>
 										</tr>
 
@@ -173,6 +232,7 @@
 				</div>
 
 			</div>
+			</div>
 
 			<div v-if="type === 'domains'">
 				<div class="mt-20 flex flex-col">
@@ -182,15 +242,18 @@
 						<div>
 							<h3 class="text-lg orange-text">Domain Name Generator</h3>
 							<h4 class="font-bold text-gray-900">Website name suggestions for any project</h4>
-							<p>Give your site the address it deserves. Whether launching an exciting start-up or changing an existing brand, our domain suggestion tool makes it easy to discover thousands of
+							<p>Give your site the address it deserves. Whether launching an exciting start-up or
+								changing an existing brand, our domain suggestion tool makes it easy to discover
+								thousands of
 								available website names fast.</p>
 						</div>
 
 						<div class="rounded-md overflow-hidden bg-gray-100 shadow-md shadow-gray-400">
 
-							<div class="bg-black px-8 py-2 flex flex-row justify-between items-center space-x-4 orange-text">
+							<div
+								class="bg-black px-8 py-2 flex flex-row justify-between items-center space-x-4 orange-text">
 								<div class="flex flex-row justify-start items-center space-x-4 divide-y">
-									
+
 								</div>
 								<div class="flex flex-row justify-start items-center space-x-4 divide-y">
 									<button class="hover:text-gray-50">Reset</button>
@@ -210,17 +273,20 @@
 
 											<h3>Transform</h3>
 
-											<div class="w-full field-checkbox flex justify-start items-center space-x-2">
+											<div
+												class="w-full field-checkbox flex justify-start items-center space-x-2">
 												<Checkbox inputId="useDomainHacks" v-model="useDomainHacks"
 													:binary="true" />
 												<label for="useDomainHacks">Use Domain Hacks</label>
 											</div>
-											<div class="w-full field-checkbox flex justify-start items-center space-x-2">
+											<div
+												class="w-full field-checkbox flex justify-start items-center space-x-2">
 												<Checkbox inputId="dropLastVomels" v-model="dropLastVomels"
 													:binary="true" />
 												<label for="dropLastVomels">Drop Last Vowels</label>
 											</div>
-											<div class="w-full field-checkbox flex justify-start items-center space-x-2">
+											<div
+												class="w-full field-checkbox flex justify-start items-center space-x-2">
 												<Checkbox inputId="prularizeNouns" v-model="prularizeNouns"
 													:binary="true" />
 												<label for="prularizeNouns">Prularize Nouns</label>
@@ -230,12 +296,14 @@
 
 											<h3>Options</h3>
 
-											<div class="w-full field-checkbox flex justify-start items-center space-x-2">
+											<div
+												class="w-full field-checkbox flex justify-start items-center space-x-2">
 												<Checkbox inputId="showPremiums" v-model="showPremiums"
 													:binary="true" />
 												<label for="showPremiums">Outlook Support</label>
 											</div>
-											<div class="w-full field-checkbox flex justify-start items-center space-x-2">
+											<div
+												class="w-full field-checkbox flex justify-start items-center space-x-2">
 												<Checkbox inputId="hideUnavailable" v-model="hideUnavailable"
 													:binary="true" />
 												<label for="hideUnavailable">Hide Unavailable</label>
@@ -244,7 +312,8 @@
 									</div>
 
 									<div>
-										<div class="w-full field-checkbox flex justify-start items-center space-x-2 px-4 py-4">
+										<div
+											class="w-full field-checkbox flex justify-start items-center space-x-2 px-4 py-4">
 											<label for="appendPrefixSuffix">Append Prefix/Suffix</label>
 											<InputSwitch v-model="appendPrefixSuffix" />
 										</div>
@@ -274,7 +343,7 @@
 		<div class="w-full">
 			<div class="lg:max-w-7xl mx-auto py-12 space-y-10">
 				<div v-if="content" class="space-y-12">
-					
+
 					<div v-if="content.features" class="rounded-md overflow-hidden space-y-4">
 						<div class="relative">
 							<div class="absolute inset-0 flex items-center">
@@ -310,7 +379,8 @@
 								<h2 class="py-4 px-8 text-2xl font-bold orange-bg text-black rounded-full">Features</h2>
 							</div>
 						</div> -->
-						<div class="py-8 px-4 mx-12 text-gray-500 " :class="content.flowcharts.length > 1 ? 'grid grid-cols-1 gap-8 lg:grid-cols-2' : ''">
+						<div class="py-8 px-4 mx-12 text-gray-500 "
+							:class="content.flowcharts.length > 1 ? 'grid grid-cols-1 gap-8 lg:grid-cols-2' : ''">
 							<div v-for="(item, index) in content.flowcharts" :key="index"
 								class="bg-gray-200 border border-gray-300 text-black rounded-md overflow-hidden w-full shadow-md">
 								<img :src="item" class="w-full" />
@@ -324,10 +394,12 @@
 								<div class="w-full border-t-2 orange-border"></div>
 							</div>
 							<div class="relative flex justify-center text-sm">
-								<h2 class="py-4 px-8 text-2xl font-bold orange-bg text-black rounded-full">Solutions</h2>
+								<h2 class="py-4 px-8 text-2xl font-bold orange-bg text-black rounded-full">Solutions
+								</h2>
 							</div>
 						</div>
-						<div class="py-8 px-4 mx-12 text-gray-500" :class="content.solutions.length > 1 ? 'grid grid-cols-1 lg:grid-cols-3 gap-8' : ''">
+						<div class="py-8 px-4 mx-12 text-gray-500"
+							:class="content.solutions.length > 1 ? 'grid grid-cols-1 lg:grid-cols-3 gap-8' : ''">
 							<div v-for="(item, index) in content.solutions" :key="index"
 								class="bg-gray-200 border border-gray-300 text-black px-4 py-6 rounded-md flex flex-row justify-start items-start space-x-8 shadow-md">
 								<div>
@@ -350,10 +422,12 @@
 								<div class="w-full border-t-2 orange-border"></div>
 							</div>
 							<div class="relative flex justify-center text-sm">
-								<h2 class="py-4 px-8 text-2xl font-bold orange-bg text-black rounded-full">Why Choose Us?</h2>
+								<h2 class="py-4 px-8 text-2xl font-bold orange-bg text-black rounded-full">Why Choose
+									Us?</h2>
 							</div>
 						</div>
-						<div class="space-y-4 px-4 mx-12 py-8 bg-gray-200 text-gray-700 rounded-lg shadow-lg border border-gray-300">
+						<div
+							class="space-y-4 px-4 mx-12 py-8 bg-gray-200 text-gray-700 rounded-lg shadow-lg border border-gray-300">
 							<div v-for="(item, index) in content.why" :key="index">
 								<h3
 									class="font-semibold blue-text flex flex-row justify-start items-center flex-nowrap space-x-2">
@@ -368,6 +442,7 @@
 		</div>
 
 		<Faq :id="type" />
+		<Toast />
 
 	</div>
 </template>
@@ -375,6 +450,7 @@
 import { useMainStore, useMeasurementStore } from '../store';
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router'
+import { useToast } from 'primevue/usetoast';
 import Faq from '../components/FaqSection.vue'
 import dedicatedServerBanner from '../assets/banners/dedicated-servers.png'
 import vpsBanner from '../assets/banners/vps.png'
@@ -391,6 +467,8 @@ import draasFlowChart2 from '../assets/flowcharts/draas2.png'
 
 import acronisFlowChart1 from '../assets/flowcharts/acronis1.png'
 
+import servicesBanner from '../assets/banners/services.png'
+
 import {
 	CloudUploadIcon,
 	CogIcon,
@@ -406,24 +484,26 @@ import {
 } from '@heroicons/vue/outline'
 
 const route = useRoute()
+const toast = useToast();
 
 const mainStore = useMainStore()
 const measurementStore = useMeasurementStore()
 
-measurementStore.getDedicatedServers()
-measurementStore.getVpsList()
-measurementStore.getEmailHostingList()
+mainStore.getPaymentDedicatedServerMatrices()
+mainStore.getPaymentVpsMatrices()
+mainStore.getPaymentEmailMatrices()
 measurementStore.getSharedHostingList()
 
-const dedicatedServers = ref(computed(() => measurementStore.dedicatedServers))
-const vps = ref(computed(() => measurementStore.vpsList))
-const emailHostings = ref(computed(() => measurementStore.emailHostingList))
+const dedicatedServers = ref(computed(() => mainStore.dedicatedServerPaymentMatrices))
+const vps = ref(computed(() => mainStore.vpsPaymentMatrices))
+const emailHostings = ref(computed(() => mainStore.emailPaymentMatrices))
 const sharedHostings = ref(computed(() => measurementStore.sharedHostingList))
 
 const content = ref(computed(() => {
 	if (type.value === 'vps') return content_collection.value.vps
 	else if (type.value === 'dedicated-server') return content_collection.value.dedicatedServer
 	else if (type.value === 'email-hosting') return content_collection.value.emailHosting
+	else if (type.value === 'network-security') return content_collection.value.networkSecurity
 	else if (type.value === 'sddc') return content_collection.value.sddc
 	else if (type.value === 'hybrid-cloud') return content_collection.value.hybridCloud
 	else if (type.value === 'domains') return content_collection.value.domains
@@ -431,6 +511,16 @@ const content = ref(computed(() => {
 	else if (type.value === 'co-location') return content_collection.value.coLocation
 	else if (type.value === 'draas') return content_collection.value.draas
 	else if (type.value === 'acronis') return content_collection.value.acronis
+	else if (type.value === 'ms-365') return content_collection.value.ms365
+	else if (type.value === 'sd-wan') return content_collection.value.sdWan
+	else if (type.value === 'cyber-security') return content_collection.value.cyberSecurity
+	else if (type.value === 'web-app-firewall') return content_collection.value.webAppFirewall
+	else if (type.value === 'database-security') return content_collection.value.databaseSecurity
+	else if (type.value === 'ip-telephony') return content_collection.value.ipTelephony
+	else if (type.value === 'access-control') return content_collection.value.accessControlSolutions
+	else if (type.value === 'cctv-solutions') return content_collection.value.cctvSolutions
+	else if (type.value === 'ict-outsource') return content_collection.value.ictOutsource
+	else if (type.value === 'convene-eboard') return content_collection.value.conveneEboard
 	else return null
 }));
 const type = ref(route.params.type);
@@ -756,7 +846,148 @@ const content_collection = ref({
 				details: 'Enjoy a domain-based email address of your choice to represent your business and help manage communication.'
 			},
 		]
-	}
+	},
+	networkSecurity: {
+		type: 'network_security',
+		banner: servicesBanner,
+		title: 'Network Security',
+		description: 'Jenetworks has partnered with the world market leaders in network security to help you secure your business with our world class tailor-made solutions. We also have a highly trained and competent team of network security engineers who work hand in hand with our clients to provide the best solutions. Our partners include Fortinet, Checkpoint, Sophos, RSA, Thales and Huawei.',
+		intro: '',
+		features: [
+			{
+				title: 'Fortinet Security.',
+				details: 'Networks are expanding and the threat landscape is growing. Fortinet understands how the Security addresses today’s biggest threat trends. Jenetworks is a partner with Fortinet and has engineers certified in NSE1, NSE2, NSE3, NSE4 and NSE5.'
+			},
+			{
+				title: 'Checkpoint Security.',
+				details: 'Check Point provides organizations of all sizes with the latest data and network security protection in an integrated next generation firewall that our team can integrate at all levels.'
+			},
+			{
+				title: 'Endpoint Security.',
+				details: 'Endpoint Security is an integrated solution that detects what others miss and protects endpoints against known and unknown threats. Jenetworks offers powerful Endpoint\'s powerful single agent, analysts understand the “who, what, where and when of any critical endpoint threat, thus minimizing alert fatigue and accelerating response. '
+			},
+		]
+	},
+	ms365: {
+		type: 'ms_365',
+		banner: servicesBanner,
+		title: 'Microsoft 365',
+		description: 'Jenetworks Ventures Limited has partnered with Microsoft to offer its clients the best solution in Microsoft office. Microsoft 365 offers clients with the best Office suite solution as well as email hosting.',
+		intro: '',
+	},
+	sdWan: {
+		type: 'sd_wan',
+		banner: servicesBanner,
+		title: 'SD-WAN Solutions',
+		description: 'Jenetworks provides a one stop shop, with interconnects to all the leading network providers to ensure you get the best connectivity, at the best prices, based on your location. Jenetworks provides fully managed high-quality secure connectivity through SD-WAN (Software defined Wide Area Networks) to connect your offices into the internet.',
+		intro: '',
+	},
+	cyberSecurity: {
+		type: 'cyber_security',
+		banner: servicesBanner,
+		title: 'Cyber Security',
+		description: 'Our managed cyber security services include customized solutions. We Monitor all endpoint activity and stop advanced threat actors penetrating your defences. We protect your users and dramatically reduce the effort required to stop advanced threats that target your endpoints, no matter where or how they work. We also deploy advanced intelligence technology to help your organization see, rapidly analyse and diagnose targeted zero-day threats.',
+		intro: '',
+		solutions: [
+			{
+				title: 'FortiMail.',
+				details: ''
+			},
+			{
+				title: 'CyberSoc.',
+				details: ''
+			},
+			{
+				title: 'CheckPoint Harmony.',
+				details: ''
+			},
+			{
+				title: 'Checkpoint Quantum Spark.',
+				details: ''
+			},
+		]
+	},
+	webAppFirewall: {
+		type: 'web_app_firewall',
+		banner: servicesBanner,
+		title: 'Web Application Firewall',
+		description: 'Web application attacks deny services and steal sensitive data. Web Application Firewall (WAF) analyses and inspects requests coming in to applications and stops these attacks. Our Web Application Firewall solutions protects your applications in the cloud and on-premises with the same set of security policies and management capabilities.',
+		intro: '',
+	},
+	databaseSecurity: {
+		type: 'database_security',
+		banner: servicesBanner,
+		title: 'Database Security',
+		description: 'Jenetworks provides a database security solution with the ability to discover databases and classify sensitive information, checking database software and configuration vulnerability such as software patches and access control, monitoring and auditing configuration changes, encryption of sensitive data, information n database activity, alerting in policy violations and ability to display various reports.',
+		intro: '',
+		solutions: [
+			{
+				title: 'Thales.',
+				details: ''
+			},
+			{
+				title: 'Imperva.',
+				details: ''
+			},
+			{
+				title: 'COMMVAULT.',
+				details: ''
+			},
+			{
+				title: 'Kaspersky.',
+				details: ''
+			},
+		]
+	},
+	ipTelephony: {
+		type: 'ip_telephony',
+		banner: servicesBanner,
+		title: 'IP Telephony',
+		description: 'The modern users of the PBX can communicate internally (within their company) and externally, using different Communication channels like Voice over the Internet Protocol, ISDN or analog. A PBX also allows you to have more phones than physical phone line (PTSN) and allows free calls between users. Additionally, providing features like transfer, voicemail, call recording, interactive voice menu (IVRs) and call queues. Jenetworks is an IP telephony provider specialized in Cisco, Avaya, My PBX and Asterix telephony systems.',
+		intro: '',
+	},
+	accessControlSolutions: {
+		type: 'access_control_solutions',
+		banner: servicesBanner,
+		title: 'Access Control Solutions',
+		description: 'At Jenetworks Ventures Ltd, we know how secure biometric systems are and can therefore give you the very best access control systems. Due to the delicacy and complexity of such systems, we ensure you that we will install systems that will work, so that you don’t have to keep calling us due to system malfunctions.',
+		intro: '',
+	},
+	cctvSolutions: {
+		type: 'cctv_solutions',
+		banner: servicesBanner,
+		title: 'CCTV Solutions',
+		description: 'A CCTV system is a sensitive and most vital type of system, which once it has been installed cannot be left to maintain itself. Cameras should be properly maintained and serviced to ensure that clear images are recorded. To ensure that it works effectively we offer Monthly, Bi-monthly and quarterly Maintenance Contracts which gives our clients peace of mind. Jenetworks provides Quality CCTV products Ranging From 420TVL to 600 TVL and still improving soon will have 700 TVL. Our products  are affordable to everyone who requires CCTV System.',
+		intro: '',
+	},
+	ictOutsource: {
+		type: 'ict_outsource',
+		banner: servicesBanner,
+		title: 'ICT Outsource Services',
+		description: 'You have two options when it comes to managing your IT systems: you can hire your own internal IT staff, or you can outsource to a specialist IT support provider like us. Jenetworks will work closely with IT managers to offer the monitoring and guidance they need to excel. Ensuring that they put in place the necessary levels of governance, process, and monitoring to deliver continuous improvement. This will not only boost the IT department\'s role in the organization, but it will also help it to grow, rather than restrict it.',
+		intro: '',
+	},
+	conveneEboard: {
+		type: 'convene_eboard',
+		banner: servicesBanner,
+		title: 'Convene E-Board',
+		description: 'Convene is an award- winning paperless boardroom solution that enables corporate administrators and board members to collaborate on board papers and conduct board meeting via central platform with mobile access. It streamlines the board meeting process and reduces security risks to data by providing directors easy and protected access to important information anytime and anywhere.',
+		intro: '',
+		features: [
+			{
+				title: 'Directors.',
+				details: ''
+			},
+			{
+				title: 'Administrators.',
+				details: ''
+			},
+			{
+				title: 'Support and Training.',
+				details: ''
+			},
+		]
+	},
 });
 
 watch(() => route.params, () => {
@@ -768,11 +999,13 @@ const tableData = ref(computed(() => {
 	else if (type.value === 'dedicated-server') return dedicatedServers.value
 	else if (type.value === 'email-hosting') return emailHostings.value
 	else if (type.value === 'shared-hosting') return sharedHostings.value
+	// else if (type.value === 'network-security') return networkSecurity.value
 	else if (type.value === 'sddc') return []
 	else return []
 }))
 
 function addCartItem(item) {
+	toast.add({severity:'success', summary: 'Item added to cart.', life: 3000});
 	return mainStore.addCartItem(item)
 }
 </script>

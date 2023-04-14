@@ -18,15 +18,14 @@
                 <div class="flex flex-row justify-between items-end w-full space-x-8">
                   <div class="mt-2 text-gray-900" v-if="getItemProduct(item)">
                     <p class="flex items-baseline space-x-2">
-                      <span class="text-lg tracking-tight">{{ getItemProduct(item).cpuType.name }}</span>
-                      <span class="text-lg tracking-tight">{{ getItemProduct(item).processorType.type }}</span>
-                      <span class="text-lg tracking-tight">{{ getItemProduct(item).cpuClockSpeed.speed }}</span>
+                      <span class="text-lg tracking-tight">{{ getItemProduct(item).processorType?.type }}</span>
+                      <span class="text-lg tracking-tight">{{ getItemProduct(item).cpuClockSpeed?.speed }}</span>
                     </p>
                     <p>
-                      <span class="ml-1 text-lg">RAM {{ getItemProduct(item).ramSize.size }}</span>
+                      <span class="ml-1 text-lg">RAM {{ getItemProduct(item).ramSize?.size }}</span>
                     </p>
                     <p>
-                      <span class="ml-1 text-lg">Storage {{ getItemProduct(item).romSize.size }} {{
+                      <span class="ml-1 text-lg">Storage {{ getItemProduct(item).romSize?.size }} {{
                           getItemProduct(item).romType
                       }}</span>
                     </p>
@@ -34,15 +33,12 @@
                       <span class="ml-1 text-lg">Operaing System {{ item.os.name }}</span>
                     </p>
                     <p>
-                      <span class="ml-1 text-lg">BandWidth {{ getItemProduct(item).bandWidthSize.size }}</span>
-                    </p>
-                    <p>
-                      <span class="ml-1 text-lg">{{ getItemProduct(item).ips }} IP's</span>
+                      <span class="ml-1 text-lg">BandWidth {{ getItemProduct(item).bandWidthSize?.size }}</span>
                     </p>
                   </div>
                   <div class="flex justify-end">
                     <h3 class="flex space-x-2">
-                      <span>Ksh</span> <span>{{ item.amount }}</span>
+                      <span>Ksh</span> <span>{{ item.amount?.toLocaleString() }}</span>
                     </h3>
                   </div>
                 </div>
@@ -65,7 +61,7 @@
         <div class="divide-y bg-gray-100 px-4 py-6 space-y-4">
           <div class="flex flex-row justify-between items-center py-2">
             <span>Order Amount</span>
-            <span>{{ mainStore.cartTotal }}</span>
+            <span>Ksh {{ mainStore.cartTotal?.toLocaleString() }}</span>
           </div>
           
           <div>

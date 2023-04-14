@@ -18,6 +18,8 @@
 			<div class="lg:col-span-3">
 				<div v-if="currentTab.name == 'account'">
 					<h3 class="uppercase py-2">Profile Information</h3>
+
+					<div>{{ authStore.userInfo["email"] }}</div>
 				</div>
 				<div v-if="currentTab.name == 'billing'">
 					<h3 class="uppercase py-2">Billing Information</h3>

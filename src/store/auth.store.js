@@ -25,6 +25,9 @@ export const useAuthStore = defineStore('authstore', {
   getters: {
     fullName () {
       return this.user?.firstName + ' ' + this.user?.lastName
+    },
+    userInfo () {
+      return this.user ?? null
     }
   },
   actions: {
@@ -43,6 +46,7 @@ export const useAuthStore = defineStore('authstore', {
               phone
               staffNo
               emailAgreed
+              authorities
               status
             }
           }
@@ -84,9 +88,9 @@ export const useAuthStore = defineStore('authstore', {
     },
     async signup(payload) {
       this.errorMessage = ''
-      const { mutate: signUpStaff } = useMutation(gql`
-        mutation signUpStaff ($user: SignUpInput!) {
-          signUpStaff (input: $user){
+      const { mutate: signUp } = useMutation(gql`
+        mutation signUp ($user: SignUpInput!) {
+          signUp (input: $user){
             id
             success
             message
@@ -102,11 +106,11 @@ export const useAuthStore = defineStore('authstore', {
       let message = ref(null)
       let id = ref(null)
 
-      signUpStaff().then(function (result) {
-        console.log(result.data.signUpStaff);
-        id.value = result.data.signUpStaff.id
-        success.value = result.data.signUpStaff.success
-        message.value = result.data.signUpStaff.message
+      signUp().then(function (result) {
+        console.log(result.data.signUp);
+        id.value = result.data.signUp.id
+        success.value = result.data.signUp.success
+        message.value = result.data.signUp.message
       });
 
       watch(success, value => {

@@ -700,6 +700,8 @@ export const useMeasurementStore = defineStore('measurements', {
       })
     },
     getRoms() {
+      
+      
       const { result } = useQuery(gql`
         query {
           getAllRomSizes {
@@ -891,7 +893,7 @@ export const useMeasurementStore = defineStore('measurements', {
 
     // DELETE RECORDS
     deleteBandwidth(id) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateBandWidth } = useMutation(gql`
         mutation deactivateBandWidth ($id: Long!) {
           deactivateBandWidth (id: $id){
@@ -912,7 +914,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     deleteRam(id) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateRamSize } = useMutation(gql`
         mutation deactivateRamSize ($id: Long!) {
           deactivateRamSize (id: $id){
@@ -933,7 +935,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     deleteRom(id) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateRomSize } = useMutation(gql`
         mutation deactivateRomSize ($id: Long!) {
           deactivateRomSize (id: $id){
@@ -954,7 +956,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     deleteCpuType(id) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuType } = useMutation(gql`
         mutation deactivateCpuType ($id: Long!) {
           deactivateCpuType (id: $id){
@@ -975,7 +977,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     deleteOs(id) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateOperatingSystem } = useMutation(gql`
         mutation deactivateOperatingSystem ($id: Long!) {
           deactivateOperatingSystem (id: $id){
@@ -996,7 +998,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     deleteProcessorType(id) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateProcessorType } = useMutation(gql`
         mutation deactivateProcessorType ($id: Long!) {
           deactivateProcessorType (id: $id){
@@ -1017,7 +1019,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     deleteCpuClockSpeed(id) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1056,6 +1058,49 @@ export const useMeasurementStore = defineStore('measurements', {
       }
     },
 
+    deleteDedicatedServer(id) {
+      
+      const { mutate: deactivateDedicatedServer } = useMutation(gql`
+        mutation deactivateDedicatedServer ($id: Long!) {
+          deactivateDedicatedServer (id: $id){
+            id
+          }
+        }
+        `, {
+        variables: {
+          id: id,
+        },
+      })
+      
+      deactivateDedicatedServer().then(function (result) {
+        window.location.reload()
+      }, function (error) {
+        //
+      });
+    },
+
+    deleteVps(id) {
+      
+      const { mutate: deactivateVps } = useMutation(gql`
+        mutation deactivateVps ($id: Long!) {
+          deactivateVps (id: $id){
+            id
+          }
+        }
+        `, {
+        variables: {
+          id: id,
+        },
+      })
+      
+      deactivateVps().then(function (result) {
+        window.location.reload()
+      }, function (error) {
+        //
+      });
+    },
+
+    // UPDATE RECORDS
     updateEmailHosting(payload) {
       const { mutate: updatedEmailHosting } = useMutation(gql`
         mutation updatedEmailHosting ($input: EmailHostingInput) {
@@ -1077,7 +1122,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateEmailPlan(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1098,7 +1143,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateEmailSpace(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1119,7 +1164,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateEmailId(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1140,7 +1185,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateDedicatedServer(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1161,7 +1206,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateVps(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1182,7 +1227,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateSharedHosting(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1203,7 +1248,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updatePaymentMatrix(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1224,7 +1269,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateBandwidth(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1245,7 +1290,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateCpuClockSpeed(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1266,7 +1311,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateCpuType(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1287,7 +1332,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateProcessorType(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1308,7 +1353,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateOs(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){
@@ -1329,16 +1374,15 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateRam(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
-        mutation deactivateCpuClockSpeed ($id: Long!) {
-          deactivateCpuClockSpeed (id: $id){
+        mutation deactivateCpuClockSpeed ($data: RamSizeInput!) {
+          deactivateCpuClockSpeed (input: $data){
             id
           }
         }
         `, {
         variables: {
-          id: id,
+          data: payload,
         },
       })
       
@@ -1350,7 +1394,7 @@ export const useMeasurementStore = defineStore('measurements', {
     },
 
     updateRom(payload) {
-      console.log('>>>>>>>>>>>>>> ' + id)
+      
       const { mutate: deactivateCpuClockSpeed } = useMutation(gql`
         mutation deactivateCpuClockSpeed ($id: Long!) {
           deactivateCpuClockSpeed (id: $id){

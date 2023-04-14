@@ -5,7 +5,7 @@
         <Popover as="header" class="relative">
 
           <div class="bg-black py-2 text-sm border-b border-gray-800">
-            <div class="max-w-7xl mx-auto">
+            <div class="max-w-7xl mx-auto px-2">
               <div class="flex flex-col lg:flex-row justify-between items-center space-x-4">
                 <div class="hidden space-x-1 md:flex divide-x divide-gray-800">
                   <router-link v-for="item in primaryNavigation" :key="item.name" :to="item.href"
@@ -15,7 +15,7 @@
                   <a v-if="authStore.isLoggedIn" href="#" @click="logout"
                     class="inline-flex items-center px-2 py-1 border-transparent text-base font-medium text-gray-600 hover:text-gray-300">
                     Logout </a>
-                  <router-link v-if="authStore.isLoggedIn" to="/console"
+                  <router-link v-if="authStore.isLoggedIn && authStore.userInfo['email'] === 'info@jenet.co.ke'" to="/console"
                     class="inline-flex items-center px-2 py-1 border-transparent text-base font-medium text-gray-600 hover:text-gray-300">
                     Admin </router-link>
                   <router-link to="/my-account"
@@ -72,8 +72,7 @@
             </div>
           </div>
 
-          <div
-            class="bg-gray-900 border-b-2 border-gray-800 border-t border-t-gray-700 shadow-2xl shadow-black">
+          <div class="bg-gray-900 border-b-2 border-gray-800 border-t border-t-gray-700 shadow-2xl shadow-black">
             <nav class="max-w-7xl mx-auto w-full flex items-center justify-between" aria-label="Global">
               <div class="flex items-center flex-1 w-full">
                 <div class="flex items-center justify-between w-full md:w-auto">
@@ -108,8 +107,8 @@
                                 class="p-2 block transition ease-in-out duration-150">
                                 <PopoverButton>
                                   <span class="text-base font-medium text-black">
-                                  {{ childx.name }}
-                                </span>
+                                    {{ childx.name }}
+                                  </span>
                                 </PopoverButton>
                               </router-link>
                             </div>
@@ -148,16 +147,16 @@
                     <span v-for="(item, index) in navigation" :key="index"
                       class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">
                       <span class="text-gray-700">{{ item.name }}</span>
-                      
-                        <router-link v-for="(childx) in item.items" :key="childx.name" :to="childx.href"
-                          class="p-2 block transition ease-in-out duration-150">
-                          <PopoverButton>
-                            <span class="text-base font-medium text-black">
+
+                      <router-link v-for="(childx) in item.items" :key="childx.name" :to="childx.href"
+                        class="p-2 block transition ease-in-out duration-150">
+                        <PopoverButton>
+                          <span class="text-base font-medium text-black">
                             {{ childx.name }}
                           </span>
-                          </PopoverButton>
-                          
-                        </router-link>
+                        </PopoverButton>
+
+                      </router-link>
 
                     </span>
                   </div>
@@ -171,6 +170,7 @@
       <main style="min-height: 50vh;" class="px-2 lg:px-24 xl:px-12">
 
         <router-view style="min-height: 50vh;" class="max-w-7xl mx-auto w-full bg-gray-200" />
+        
       </main>
 
       <footer class="bg-black px-4 text-sm" aria-labelledby="footer-heading">
@@ -178,11 +178,12 @@
         <div class="max-w-md mx-auto pt-12 px-4 sm:max-w-7xl sm:px-6 lg:pt-16 lg:px-8">
           <div class="xl:grid xl:grid-cols-3 xl:gap-8">
             <div class="space-y-8 xl:col-span-1">
-              <img class="h-20" src="../assets/white-logo.png" alt="JenetWorks" />
+              <img class="w-auto h-24 lg:h-36" src="../assets/logo-lg.jpeg" alt="JenetWorks" />
               <p class="orange-text text-base">Making the world a better place through constructing elegant
                 hierarchies.</p>
               <div class="space-y-1">
-                <div v-for="(item, index) in contacts" :key="index" class="flex flex-row flex-nowrap space-x-4 justify-start items-center">
+                <div v-for="(item, index) in contacts" :key="index"
+                  class="flex flex-row flex-nowrap space-x-4 justify-start items-center">
                   <i :class="'orange-text pi ' + item.icon"></i>
                   <span class="text-gray-300">{{ item.contact }}</span>
                 </div>
@@ -244,37 +245,57 @@
             </div>
           </div>
           <div class="mt-12 border-t border-gray-800 py-8">
-            <p class="text-base text-xs orange-text xl:text-center">&copy; 2020 JenetWorks, Inc. All rights reserved.</p>
+            <p class="text-base text-xs orange-text xl:text-center">&copy; 2020 JenetWorks, Inc. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>
+      <SocialChat icon :attendants="attendants">
+            <template #header>
+              <p>Click on one of our attendants below to chat on WhatsApp.</p>
+            </template>
+            <template #button>
+              <img src="https://raw.githubusercontent.com/ktquez/vue-social-chat/master/src/icons/whatsapp.svg"
+                alt="icon whatsapp" aria-hidden="true">
+            </template>
+            <template #footer>
+              <small>Opening hours: 8am to 6pm</small>
+            </template>
+          </SocialChat>
     </div>
   </div>
 </template>
 
 <script setup>
+import 'vue-social-chat/dist/style.css'
 import { defineComponent, h } from 'vue'
+import { SocialChat } from 'vue-social-chat'
 import { Popover, PopoverButton, PopoverPanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import {
-  CloudUploadIcon,
-  CogIcon,
-  LockClosedIcon,
   MenuIcon,
   ShoppingCartIcon,
   PhoneIcon,
   MailIcon,
-  ServerIcon,
-  ShieldCheckIcon,
   XIcon,
 } from '@heroicons/vue/outline'
-import { ChevronRightIcon, ExternalLinkIcon } from '@heroicons/vue/solid'
 import { useMainStore, useAuthStore } from '../store'
-import {PrimeIcons} from 'primevue/api';
 
 
 const mainStore = useMainStore()
 const authStore = useAuthStore()
-
+const attendants = [
+  {
+    app: 'whatsapp',
+    label: 'Technical support',
+    name: 'JeNetworks',
+    number: '254757779099',
+    avatar: {
+      src: 'https://avatars0.githubusercontent.com/u/8084606?s=460&u=20b6499a416cf7129a18e5c168cf387e159edb1a&v=4',
+      alt: 'JeNetworks'
+    }
+  },
+  // ...
+]
 const contacts = [
   {
     icon: 'pi-map-marker',
@@ -302,6 +323,12 @@ const navigation = [
     name: 'Hybrid Cloud', href: '#', items: [
       {
         name: 'JE Networks Hybrid Cloud', href: '/product/hybrid-cloud'
+      },
+      {
+        name: 'VPS Kenya', href: '/product/vps'
+      },
+      {
+        name: 'Shared Hosting', href: '/product/shared-hosting'
       }
     ]
   },
@@ -313,20 +340,6 @@ const navigation = [
     ]
   },
   {
-    name: 'VPS', href: '#', items: [
-      {
-        name: 'VPS Kenya', href: '/product/vps'
-      }
-    ]
-  },
-  {
-    name: 'Corporate Hosting', href: '#', items: [
-      {
-        name: 'Shared Hosting', href: '/product/shared-hosting'
-      },
-    ]
-  },
-  {
     name: 'Business Solution', href: '#', items: [
       {
         name: 'Proffessional Email hosting', href: '/product/email-hosting',
@@ -334,15 +347,18 @@ const navigation = [
       {
         name: 'Domain Management', href: '/product/domains',
       },
+      {
+        name: 'Microsoft 365', href: '/product/ms-365',
+      },
+      {
+        name: 'ICT Outsource Services', href: '/product/ict-outsource',
+      },
       // {
-      //   name: 'G-Suite', href: '#',
-      // }, {
-      //   name: 'Microsoft Azure', href: '#',
-      // }, {
-      //   name: 'Microsoft 365', href: '#',
-      // }, {
-      //   name: 'SAP Appliction hosting Services', href: '#',
-      // }
+      //   name: 'Convene E-Board', href: '/product/convene-eboard',
+      // },
+      {
+        name: 'IP Telephony', href: '/product/ip-telephony',
+      },
     ]
   },
   {
@@ -356,7 +372,7 @@ const navigation = [
     ]
   },
   {
-    name: 'Acronis', href: '#', items: [
+    name: 'Storage', href: '#', items: [
       {
         name: 'Acronis Cloud Data Back Up', href: '/product/acronis',
       },
@@ -370,17 +386,35 @@ const navigation = [
     ]
   },
   {
+    name: 'Security', href: '#', items: [
+      {
+        name: 'Network Security', href: '/product/network-security',
+      },
+      {
+        name: 'SD-WAN Solution', href: '/product/sd-wan',
+      },
+      {
+        name: 'Cyber Security', href: '/product/cyber-security',
+      },
+      {
+        name: 'Web Application Firewall', href: '/product/web-app-firewall',
+      },
+      {
+        name: 'Database Security', href: '/product/database-security',
+      },
+      {
+        name: 'Access Control Solutions', href: '/product/access-control',
+      },
+      {
+        name: 'CCTV Solutions', href: '/product/cctv-solutions',
+      },
+    ]
+  },
+  {
     name: 'Corporate Profile', href: '#', items: [
       {
         name: 'About us', href: '/about',
       },
-      // {
-      //   name: 'Life @ Jenetworks', href: '#',
-      // }, {
-      //   name: 'Careers', href: '#',
-      // }, {
-      //   name: 'Our Clients', href: '#',
-      // }
     ]
   },
 ]
@@ -484,3 +518,20 @@ function logout() {
   return authStore.logout();
 }
 </script>
+<style>
+
+.vsc-popup-button {
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.vsc-popup-button img{
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  margin: auto;
+}
+</style>

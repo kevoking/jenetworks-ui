@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-6">
-            <div class="max-w-7xl mx-auto">
+            <div class="max-w-9xl mx-auto">
                 <h1 class="text-lg font-semibold text-gray-900">Orders</h1>
                 <!-- <div class="mx-auto max-w-7xl my-4 flex justify-end items-center">
                     <button class="orange-bg px-4 py-2 rounded-md" @click="toggleModal('paymentmatrix')">
@@ -18,9 +18,22 @@
                                 <span>{{ slotProps.data.user.firstName }}</span>
                             </template>
                         </Column>
+                        <Column field="items" header="Items">
+                            <template #body="slotProps">
+                                <div v-for="(item, index) in slotProps.data.items" :key="index">
+                                    <span v-if="item.vps">
+                                        Cloud VPS
+                                    </span>
+                                    <span v-if="item.dedicatedServer">
+                                        Dedicated Server
+                                    </span>
+                                    {{ getItemProduct(item).processorType.type ?? '' }}
+                                </div>
+                            </template>
+                        </Column>
                         <Column field="amount" header="Amount">
                             <template #body="slotProps">
-                                <span>{{ orderAmount(slotProps.data.items) }}</span>
+                                <span>Ksh {{ orderAmount(slotProps.data.items)?.toLocaleString() }}</span>
                             </template>
                         </Column>
                         <Column field="status" header="Status">
@@ -30,7 +43,7 @@
                         </Column>
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
-                                <div class="flex flex-row flex-shrink justify-start space-x-2 items-center w-24">
+                                <div class="grid grid-cols-3">
                                     <span>
                                         <router-link :to="'/order-details/' + slotProps.data.id">
                                             <EyeIcon class="h-4 w-4 blue-text" />
@@ -66,6 +79,12 @@ const mainStore = useMainStore();
 mainStore.getOrders()
 
 const orders = computed(() => mainStore.orders)
+
+function getItemProduct(item) {
+  if (item.vps) return item.vps
+  else if (item.dedicatedServer) return item.dedicatedServer
+  else return null
+}
 
 function orderAmount(items) {
     let amount = 0

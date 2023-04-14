@@ -1,12 +1,12 @@
 <template>
     <div>
         <div class="py-6">
-            <div class="max-w-7xl mx-auto">
+            <div class="max-w-9xl mx-auto">
                 <h1 class="text-lg font-semibold text-gray-900">Users</h1>
             </div>
-            <div class="max-w-7xl mx-auto">
+            <div class="max-w-9xl mx-auto">
                 <!-- Replace with your content -->
-                <div class="mx-auto max-w-7xl my-4 flex justify-end items-center">
+                <div class="mx-auto max-w-9xl my-4 flex justify-end items-center">
                     <button class="orange-bg px-4 py-2 rounded-md" @click="toggleModal(false,'user')">
                         Add User
                     </button>
@@ -32,12 +32,14 @@
                         <Column field="staffNo" header="Staff No"></Column>
                         <Column field="status" header="Action">
                             <template #body="slotProps">
-                                <button class="px-2 py-1" @click="selectItem(slotProps.data);toggleModal(true,'user')">
-                                    <PencilIcon class="h-4 w-4 blue-text" />
-                                </button>
-                                <button class="px-2 py-1" @click="confirmDelete(slotProps.data.id)">
-                                    <TrashIcon class="h-4 w-4 text-red-400" />
-                                </button>
+                                <div class="grid grid-cols-2">
+                                    <button class="px-2 py-1" @click="selectItem(slotProps.data);toggleModal(true,'user')">
+                                        <PencilIcon class="h-4 w-4 blue-text" />
+                                    </button>
+                                    <button class="px-2 py-1" @click="confirmDelete(slotProps.data.id)">
+                                        <TrashIcon class="h-4 w-4 text-red-400" />
+                                    </button>
+                                </div>
                             </template>
                         </Column>
                     </DataTable>

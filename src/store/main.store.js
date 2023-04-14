@@ -7,7 +7,7 @@ import gql from 'graphql-tag'
 import axios from 'axios'
 provideApolloClient(apolloClient)
 
-const mpesaUrl = 'http://217.21.122.56:9292/prime/je/api/';
+const mpesaUrl =  'https://jenetworks.co.ke/'; // 'http://217.21.122.56:9292/prime/je/api/';
 
 export const useMainStore = defineStore('mainstore', {
   // arrow function recommended for full type inference
@@ -19,6 +19,9 @@ export const useMainStore = defineStore('mainstore', {
       orders: [],
       mpesaCheckOutResponse: null,
       paymentMatrices: [],
+      emailPaymentMatrices: [],
+      vpsPaymentMatrices: [],
+      dedicatedServerPaymentMatrices: [],
       loading: false,
       mpesaStkResponse: null
     }
@@ -136,6 +139,7 @@ export const useMainStore = defineStore('mainstore', {
             id
             user {
               phone
+              email
               firstName
               lastName
             }
@@ -307,10 +311,33 @@ export const useMainStore = defineStore('mainstore', {
         this.orders = value.getAllOrders;
       })
     },
-    async getPaymentEmailMatrices(id) {
+    getPaymentEmailMatrices() {
       const { result } = useQuery(gql`
-        query ($vpsId: Long) {
-          getPaymentMatrixByVps (vpsId: $vpsId) {
+        query {
+          getPaymentMatrixByEmailPlan {
+            id
+            emailPlan {
+              id
+              code
+              name
+              description
+            }
+            os {
+              id
+              name
+            }
+            amount
+          }
+        }
+      `)
+      watch(result, value => {
+        this.emailPaymentMatrices = value.getPaymentMatrixByEmailPlan;
+      })
+    },
+    async getPaymentVpsMatrices() {
+      const { result } = useQuery(gql`
+        query {
+          getPaymentMatrixByVps {
             id
             vps {
               id
@@ -349,66 +376,15 @@ export const useMainStore = defineStore('mainstore', {
             amount
           }
         }
-      `, {
-        vpsId: id,
-      })
+      `)
       watch(result, value => {
-        this.paymentMatrices = value.getPaymentMatrixByVps;
+        this.vpsPaymentMatrices = value.getPaymentMatrixByVps;
       })
     },
-    async getPaymentVpsMatrices(id) {
+    async getPaymentDedicatedServerMatrices() {
       const { result } = useQuery(gql`
-        query ($vpsId: Long) {
-          getPaymentMatrixByVps (vpsId: $vpsId) {
-            id
-            vps {
-              id
-              processorType {
-                id
-                type
-              }
-              cpuType {
-                id
-                name
-              }
-              cpuClockSpeed {
-                id
-                speed
-              }
-              ramSize {
-                id
-                size
-              }
-              romType
-              romSize {
-                id
-                size
-              }
-              bandWidthSize {
-                id
-                size
-              }
-              ips
-              status
-            }
-            os {
-              id
-              name
-            }
-            amount
-          }
-        }
-      `, {
-        vpsId: id,
-      })
-      watch(result, value => {
-        this.paymentMatrices = value.getPaymentMatrixByVps;
-      })
-    },
-    async getPaymentDedicatedServerMatrices(id) {
-      const { result } = useQuery(gql`
-        query ($dedicatedServerId: Long) {
-          getPaymentMatrixByDedicatedServer (dedicatedServerId: $dedicatedServerId) {
+        query {
+          getPaymentMatrixByDedicatedServer {
             id
             dedicatedServer {
               id
@@ -447,22 +423,20 @@ export const useMainStore = defineStore('mainstore', {
             amount
           }
         }
-      `, {
-        dedicatedServerId: id,
-      })
+      `)
       watch(result, value => {
-        this.paymentMatrices = value.getPaymentMatrixByDedicatedServer;
+        this.dedicatedServerPaymentMatrices = value.getPaymentMatrixByDedicatedServer;
       })
     },
-    async getPaymentPlans(category, id) {
-      if (category == 'vps') {
-        this.getPaymentVpsMatrices(id)
-      } else if (category === 'dedicated_server') {
-        this.getPaymentDedicatedServerMatrices(id)
-      } else if (category === 'email_hosting') {
-        // this.getPaymentDedicatedServerMatrices(id)
-      }
-    },
+    // async getPaymentPlans(category, id) {
+    //   if (category == 'vps') {
+    //     this.getPaymentVpsMatrices(id)
+    //   } else if (category === 'dedicated_server') {
+    //     this.getPaymentDedicatedServerMatrices(id)
+    //   } else if (category === 'email_hosting') {
+    //     // this.getPaymentDedicatedServerMatrices(id)
+    //   }
+    // },
     addCartItem(payload) {
       let cart = this.shoppingCart
       if (cart == null) {
@@ -471,7 +445,7 @@ export const useMainStore = defineStore('mainstore', {
       cart.push(payload)
       this.shoppingCart = cart;
       localStorage.setItem('shopping_cart', JSON.stringify(cart));
-      router.push('/cart')
+      // router.push('/cart')
     },
     removeCartItem(index) {
       let cart = this.shoppingCart

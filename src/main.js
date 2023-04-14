@@ -31,10 +31,11 @@ import ConfirmDialog from 'primevue/confirmdialog';
 import Carousel from 'primevue/carousel';
 
 import router from './router'
-
+// import VueSocialChat from 'vue-social-chat'
 // Update
 
 import './style.css'
+import 'vue-social-chat/dist/style.css'
 const pinia = createPinia()
 
 createApp(App)
@@ -42,6 +43,7 @@ createApp(App)
 .provide(DefaultApolloClient, appolloClient)
 .use(ToastService)
 .use(ConfirmationService)
+// .use(VueSocialChat)
 .component('DataTable', DataTable)
 .component('Column', Column)
 .component('Dialog', Dialog)

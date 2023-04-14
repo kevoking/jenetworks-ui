@@ -10,7 +10,7 @@
     <div class="hidden sm:block max-w-7xl mx-auto">
       <div class="rounded-lg overflow-hidden border border-gray-200 mt-4 bg-gray-100 shadow-lg">
         <nav class="-mb-px flex divide-x divide-gray-300" aria-label="Tabs">
-          <a v-for="tab in tabs" :key="tab.name" @click="currentTab = tab.name" :href="tab.href"
+          <a v-for="tab in tabs" :key="tab.name" :href="'/measurements/' + tab.name"
             :class="[tab.name == currentTab ? 'blue-border blue-text' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300', 'w-1/4 py-1.5 px-1 text-center border-b-4 font-medium text-sm']"
             :aria-current="tab.current ? 'page' : undefined">
             {{ tab.title }}
@@ -83,7 +83,7 @@
           </DataTable>
         </div>
       </div>
-      <div v-if="currentTab == 'cputype'">
+      <!-- <div v-if="currentTab == 'cputype'">
         <div class="mx-auto max-w-7xl my-4 flex justify-end items-center">
           <button class="orange-bg px-4 py-2 rounded-md" @click="toggleModal(false, null, 'cputype')">Add Cpu
             Type</button>
@@ -108,7 +108,7 @@
             </Column>
           </DataTable>
         </div>
-      </div>
+      </div> -->
       <div v-if="currentTab == 'os'">
         <div class="mx-auto max-w-7xl my-4 flex justify-end items-center">
           <button class="orange-bg px-4 py-2 rounded-md" @click="toggleModal(false, null, 'os')">Add Operating
@@ -176,7 +176,7 @@
             <Column field="status" header="Status"></Column>
             <Column field="status" header="Action">
               <template #body="{ data }">
-                <button class="px-2 py-1" @click="toggleModal(true, data, 'ram')">
+                <button class="px-2 py-1" @click="selectItem(data, 'ram');toggleModal(true, data, 'ram')">
                   <PencilIcon class="h-4 w-4 blue-text" />
                 </button>
                 <button class="px-2 py-1" @click="confirmDelete('ram', data.id)">
@@ -227,6 +227,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue';
+import { useRoute } from 'vue-router'
 import { FilterMatchMode, FilterOperator } from 'primevue/api';
 import BandWidthForm from '../../components/admin/dialogs/BandWidthForm.vue';
 import CpuClockSpeedForm from '../../components/admin/dialogs/CpuClockSpeedForm.vue';
@@ -244,6 +245,7 @@ import {
   TrashIcon
 } from '@heroicons/vue/outline'
 
+const route = useRoute()
 const confirm = useConfirm();
 const toast = useToast();
 const measurementStore = useMeasurementStore();
@@ -251,19 +253,19 @@ const toReload = ref(computed(() => measurementStore.toReload))
 
 measurementStore.getBandwidths()
 measurementStore.getCpuClockSpeeds()
-measurementStore.getCpuTypes()
+// measurementStore.getCpuTypes()
 measurementStore.getOperatingSystems()
 measurementStore.getProcessorTypes()
 measurementStore.getRams()
 measurementStore.getRoms()
 
-const bandwidths = ref(computed(() => measurementStore.bandwidths))
-const cpuClockSpeeds = ref(computed(() => measurementStore.cpuClockSpeeds))
-const cpuTypes = ref(computed(() => measurementStore.cpuTypes))
-const operatingSystems = ref(computed(() => measurementStore.operatingSystems))
-const processerTypes = ref(computed(() => measurementStore.processerTypes))
-const rams = ref(computed(() => measurementStore.rams))
-const roms = ref(computed(() => measurementStore.roms))
+const bandwidths = ref(computed(() => measurementStore.bandwidths.filter(e => e.status === 'Active')))
+const cpuClockSpeeds = ref(computed(() => measurementStore.cpuClockSpeeds.filter(e => e.status === 'Active')))
+// const cpuTypes = ref(computed(() => measurementStore.cpuTypes.filter(e => e.status === 'Active')))
+const operatingSystems = ref(computed(() => measurementStore.operatingSystems.filter(e => e.status === 'Active')))
+const processerTypes = ref(computed(() => measurementStore.processerTypes.filter(e => e.status === 'Active')))
+const rams = ref(computed(() => measurementStore.rams.filter(e => e.status === 'Active')))
+const roms = ref(computed(() => measurementStore.roms.filter(e => e.status === 'Active')))
 
 const filterBandWidths = ref({
   'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -305,21 +307,28 @@ function confirmDelete(record, id) {
 }
 const tabs = [
   { title: 'BandWidth', name: 'bandwidth' },
-  { title: 'CpuClockSpeed', name: 'cpuclockspeed' },
-  { title: 'CpuType', name: 'cputype' },
-  { title: 'OperatingSystem', name: 'os' },
+  // { title: 'CpuType', name: 'cputype' },
   { title: 'ProcessorType', name: 'processortype' },
+  { title: 'CpuClockSpeed', name: 'cpuclockspeed' },
   { title: 'RamSize', name: 'ram' },
   { title: 'RomSize', name: 'rom' },
+  { title: 'OperatingSystem', name: 'os' },
 ]
-const currentTab = ref('bandwidth')
-
+// const currentTab = ref('bandwidth')
+const currentTab = ref(route.params.item);
 const editRecord = ref(false)
 const editRecordData = ref({})
+
+function selectItem(item, target) {
+  if (target === 'ram') {
+    measurementStore.editRamData = item
+  }
+}
+
 function toggleModal(edit, data, target) {
-  console.log(data)
-  editRecord.value = edit
-  editRecordData.value = data
+  if (target === 'ram') {
+    measurementStore.editRam = edit
+  }
   measurementStore.modal = target
 }
 

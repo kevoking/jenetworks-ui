@@ -114,8 +114,13 @@ const routes = [
 				name: 'dashboard',
 				component: Dashboard,
 			},
+			// {
+			// 	path: '/measurements',
+			// 	name: 'measurements',
+			// 	component: Measurements,
+			// },
 			{
-				path: '/measurements',
+				path: '/measurements/:item',
 				name: 'measurements',
 				component: Measurements,
 			},

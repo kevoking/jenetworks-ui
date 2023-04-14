@@ -1,7 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
     <div>
-        <Dialog header="Ram" v-model:visible="displayModal" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
+        <Dialog header="Ram" v-model:visible="displayModal" @hide="closeModal" :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
             :style="{ width: '40vw' }" :modal="true">
             <div class="">
                 <div class="space-y-4">
@@ -41,7 +41,10 @@ const props = defineProps({
 
 const toast = useToast();
 const measurementStore = useMeasurementStore();
+const edit = ref(computed(() => measurementStore.editRam))
+const editData = ref(computed(() => measurementStore.editRamData))
 
+const id = ref(0)
 const size = ref(null)
 const description = ref(null)
 
@@ -49,6 +52,11 @@ const displayModal = ref(false)
 const modal = computed(() => measurementStore.modal)
 
 watch(modal, value => {
+    if (edit.value === true) {
+        id.value = editData.value.id
+        size.value = editData.value.size
+        description.value = editData.value.description
+    }
     if (modal.value == 'ram') displayModal.value = true
     else displayModal.value = false
 })
@@ -67,13 +75,16 @@ const closeModal = () => {
 
 async function submitRam() {
     const payload = {
-        id: 0,
+        id: id.value,
         size: size.value,
         description: description.value ?? "",
         status: "Active"
     }
-
-    return await measurementStore.saveRamSize(payload)
+    if (edit.value === true) {
+        return measurementStore.updateRam(payload)
+    } else {
+    return measurementStore.saveRamSize(payload)
+    }
 }
 
 </script>

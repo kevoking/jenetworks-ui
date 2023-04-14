@@ -1,7 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
     <div>
-        <Dialog :header="edit ? 'Edit Product Category' : 'Create Product Category'" v-model:visible="displayModal"
+        <Dialog :header="edit ? 'Edit Product Category' : 'Create Product Category'" @hide="closeModal" v-model:visible="displayModal"
             :breakpoints="{ '960px': '75vw', '640px': '90vw' }" :style="{ width: '40vw' }" :modal="true">
             <div class="">
                 <div class="space-y-4">

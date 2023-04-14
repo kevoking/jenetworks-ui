@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div class="py-12 space-y-8">
+    <div v-if="showFaqs.length > 0" class="py-12 space-y-8">
       <div class="relative">
 				<div class="absolute inset-0 flex items-center">
 					<div class="w-full border-t-2 orange-border"></div>

@@ -49,6 +49,51 @@
 							</div>
 						</div>
 
+						<!-- Company Details -->
+						<div>
+							<label for="companyName" class="block text-sm font-medium text-gray-700"> Company name
+							</label>
+							<div class="mt-1">
+								<Field id="companyName" name="companyName" type="text" autocomplete="companyName" required=""
+									class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+								<div class="text-sm text-red-400">{{ errors.companyName }}</div>
+							</div>
+						</div>
+						<div>
+							<label for="companyEmail" class="block text-sm font-medium text-gray-700"> Company Email </label>
+							<div class="mt-1">
+								<Field id="companyEmail" name="companyEmail" type="email" autocomplete="companyEmail" required=""
+									class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+								<div class="text-sm text-red-400">{{ errors.companyEmail }}</div>
+							</div>
+						</div>
+						<div>
+							<label for="companyTel" class="block text-sm font-medium text-gray-700"> Company Phone </label>
+							<div class="mt-1">
+								<Field id="companyTel" name="companyTel" type="tel" autocomplete="companyTel" required=""
+									class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+								<div class="text-sm text-red-400">{{ errors.companyTel }}</div>
+							</div>
+						</div>
+						<div>
+							<label for="postalAddress" class="block text-sm font-medium text-gray-700"> Postal Address
+							</label>
+							<div class="mt-1">
+								<Field id="postalAddress" name="postalAddress" type="text" autocomplete="postalAddress" required=""
+									class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+								<div class="text-sm text-red-400">{{ errors.postalAddress }}</div>
+							</div>
+						</div>
+						<div>
+							<label for="physicalAddress" class="block text-sm font-medium text-gray-700"> Physical Address
+							</label>
+							<div class="mt-1">
+								<Field id="physicalAddress" name="physicalAddress" type="text" autocomplete="physicalAddress" required=""
+									class="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+								<div class="text-sm text-red-400">{{ errors.physicalAddress }}</div>
+							</div>
+						</div>
+
 						<div>
 							<label for="password" class="block text-sm font-medium text-gray-700"> Password </label>
 							<div class="mt-1">
@@ -98,6 +143,11 @@ const schema = Yup.object().shape({
 	lastName: Yup.string().required('Last name is required'),
 	email: Yup.string().required('Email is required'),
 	phone: Yup.string().required('Phone is required'),
+	companyName: Yup.string().required('Company name is required'),
+	companyEmail: Yup.string().required('Company email is required'),
+	companyTel: Yup.string().required('Company phone is required'),
+	postalAddress: Yup.string().required('Postal address is required'),
+	physicalAddress: Yup.string().required('Physical address is required'),
 	password: Yup.string().required('Password is required')
 });
 
@@ -109,6 +159,11 @@ function onSubmit(values, { setErrors }) {
 		lastName: lastName,
 		email: email,
 		phone: phone,
+		companyName: companyName,
+		companyEmail: companyEmail,
+		companyTel: companyTel,
+		postalAddress: postalAddress,
+		physicalAddress: physicalAddress,
 		password: password
 	}
 

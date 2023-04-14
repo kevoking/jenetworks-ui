@@ -1,12 +1,12 @@
 <template>
     <div>
         <div class="py-6">
-            <div class="max-w-7xl mx-auto">
+            <div class="max-w-9xl mx-auto">
                 <h1 class="text-lg font-semibold text-gray-900">Payment Matrix</h1>
             </div>
-            <div class="max-w-7xl mx-auto">
+            <div class="max-w-9xl mx-auto">
                 <!-- Replace with your content -->
-                <div class="mx-auto max-w-7xl my-4 flex justify-end items-center">
+                <div class="mx-auto max-w-9xl my-4 flex justify-end items-center">
                     <button class="orange-bg px-4 py-2 rounded-md" @click="toggleModal('paymentmatrix')">
                         Add Payment Matrix
                     </button>
@@ -18,12 +18,22 @@
                         currentPageReportTemplate="Showing {first} to {last} of {totalRecords}">
                         <Column field="id" header="Item">
                             <template #body="slotProps">
-                                <span>{{ slotProps.data.vps?.cpuType.name }}</span>
-                                <span>{{ slotProps.data.dedicatedServer?.cpuType.name }}</span>
+                                <span v-if="slotProps.data.vps">
+                                    {{slotProps.data.vps.processorType.type}}/{{slotProps.data.vps.ramSize.size}} RAM/{{slotProps.data.vps.romSize.size}}/{{slotProps.data.vps.bandWidthSize.size}} Bandwidth
+                                </span>
+                                <span>
+                                    {{slotProps.data.dedicatedServer?.processorType?.type}}/{{slotProps.data.dedicatedServer?.ramSize.size}} RAM/{{slotProps.data.dedicatedServer?.romSize.size}}/{{slotProps.data.dedicatedServer?.bandWidthSize.size}} Bandwidth
+                                </span>
                             </template>
                         </Column>
                         <Column field="os.name" header="Operating System"></Column>
-                        <Column field="amount" header="Amount"></Column>
+                        <Column field="amount" header="Amount">
+                            <template #body="slotProps">
+                                <span>
+                                    Ksh {{ slotProps.data.amount?.toLocaleString() }}
+                                </span>
+                            </template>
+                        </Column>
                         <Column field="status" header="Action">
                             <template #body="{ data }">
                                 <button class="px-2 py-1" >

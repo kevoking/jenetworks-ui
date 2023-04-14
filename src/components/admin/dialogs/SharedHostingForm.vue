@@ -1,7 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
     <div>
-        <Dialog header="Shared Hosting" v-model:visible="displayModal"
+        <Dialog header="Shared Hosting" v-model:visible="displayModal" @hide="closeModal"
             :breakpoints="{ '960px': '75vw', '640px': '90vw' }" :style="{ width: '40vw' }" :modal="true">
             <div class="w-full">
                 <div class="space-y-4 w-full">
