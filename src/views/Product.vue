@@ -967,27 +967,27 @@ const content_collection = ref({
 		description: 'You have two options when it comes to managing your IT systems: you can hire your own internal IT staff, or you can outsource to a specialist IT support provider like us. Jenetworks will work closely with IT managers to offer the monitoring and guidance they need to excel. Ensuring that they put in place the necessary levels of governance, process, and monitoring to deliver continuous improvement. This will not only boost the IT department\'s role in the organization, but it will also help it to grow, rather than restrict it.',
 		intro: '',
 	},
-	conveneEboard: {
-		type: 'convene_eboard',
-		banner: servicesBanner,
-		title: 'Convene E-Board',
-		description: 'Convene is an award- winning paperless boardroom solution that enables corporate administrators and board members to collaborate on board papers and conduct board meeting via central platform with mobile access. It streamlines the board meeting process and reduces security risks to data by providing directors easy and protected access to important information anytime and anywhere.',
-		intro: '',
-		features: [
-			{
-				title: 'Directors.',
-				details: ''
-			},
-			{
-				title: 'Administrators.',
-				details: ''
-			},
-			{
-				title: 'Support and Training.',
-				details: ''
-			},
-		]
-	},
+	// conveneEboard: {
+	// 	type: 'convene_eboard',
+	// 	banner: servicesBanner,
+	// 	title: 'Convene E-Board',
+	// 	description: 'Convene is an award- winning paperless boardroom solution that enables corporate administrators and board members to collaborate on board papers and conduct board meeting via central platform with mobile access. It streamlines the board meeting process and reduces security risks to data by providing directors easy and protected access to important information anytime and anywhere.',
+	// 	intro: '',
+	// 	features: [
+	// 		{
+	// 			title: 'Directors.',
+	// 			details: ''
+	// 		},
+	// 		{
+	// 			title: 'Administrators.',
+	// 			details: ''
+	// 		},
+	// 		{
+	// 			title: 'Support and Training.',
+	// 			details: ''
+	// 		},
+	// 	]
+	// },
 });
 
 watch(() => route.params, () => {
